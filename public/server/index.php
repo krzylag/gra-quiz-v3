@@ -13,7 +13,11 @@
                     isset($POST_DATA['name']) ? $POST_DATA['name'] : null
                 ));
                 break;
-            case '':
+            case 'create-group':
+                print json_encode(createGroup(
+                    isset($POST_DATA['name']) ? $POST_DATA['name'] : null,
+                    isset($POST_DATA['package']) ? $POST_DATA['package'] : null
+                ));
                 break;
             default:
                 die("Unknown POST action: *".$POST_ACTION."*");
@@ -32,6 +36,9 @@
                 print json_encode(getPackage(
                     filter_input(INPUT_GET, 'hash', FILTER_SANITIZE_SPECIAL_CHARS)
                 ));
+                break;
+            case 'groups-list':
+                print json_encode(listGroups());
                 break;
             case '':   
                 break;

@@ -1,6 +1,19 @@
 <?php
 
 
+function listGroups() {
+    GLOBAL $DB;
+    $prepGroups = $DB->prepare('SELECT * FROM groups WHERE deleted_at IS NULL ORDER BY created_at');
+    $prepGroups->execute();
+    $fetchGroups = $prepGroups->fetchAll(PDO::FETCH_ASSOC);
+    $result=[];
+    foreach ($fetchGroups AS $row) {
+        $result[$row['id']]=$row;
+        $result[$row['id']]['id']=(int) $row['id'];
+    }
+    return $result;
+}
+
 function listPackages() {
     $result=[];
     foreach (scandir(PATH_PACKAGES) AS $candidate) {

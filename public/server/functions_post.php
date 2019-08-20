@@ -46,6 +46,43 @@ function validateNewLogin($tryPin, $tryName) {
     }
 }
 
+function createGroup($name, $hash) {
+    GLOBAL $DB;
+    $prepPin = $DB->prepare('SELECT * FROM groups WHERE deleted_at IS NULL');
+    $prepPin->execute();
+    $fetchPin = $prepPin->fetchAll(PDO::FETCH_ASSOC);
+    $existingPins=[];
+    foreach ($fetchPin AS $row) {
+        $existingPins[$row['pin']]=$row['pin'];
+    }
+    $gotPin=null;
+    $loop = 0;
+    do {
+        $tryPin = rand(1000,9999);
+        if (!isset($existingPins[$tryPin])) $gotPin=$tryPin;
+        $loop++;
+    } while ($gotPin==null || $loop<1000);
+    if ($gotPin!==null) {
+        $prepIns = $DB->prepare('INSERT INTO groups (name, pin, package_hash, created_at) VALUES (:na, :pi, :ph, :ca)');
+        $prepIns->bindParam(':na', $name, PDO::PARAM_STR);
+        $prepIns->bindParam(':pi', $gotPin, PDO::PARAM_STR);
+        $prepIns->bindParam(':ph', $hash, PDO::PARAM_STR);
+        $now=(new DateTime())->format('c');
+        $prepIns->bindParam(':ca', $now, PDO::PARAM_STR);
+        $prepIns->execute();
+        return [
+            "result"    => true,
+            "reason"    => null,
+            "groups"    => listGroups()
+        ];
+    } else {
+        return [
+            "result" => false,
+            "reason" => 'unable-to-generate-pin'
+        ];
+    }
+}
+
 
 /*
 function registerAnswer($uname, $gname, $countCorrect, $countWrong, $arrayWrong) {
