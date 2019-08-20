@@ -1,0 +1,50 @@
+{
+    "package_title": "DEV Przywództwo sytuacyjne",
+    "translations": {
+        "login_screen": {
+            "game_title": "Przywództwo sytuacyjne",
+            "pin_request": "Wpisz numer PIN podany przez prowadzacego ćwiczenie.",
+            "pin_placeholder": "PIN",
+            "name_request": "Wpisz swoje imię",
+            "name_placeholder": "imię",
+            "start_button": "start"
+        },
+        "welcome_screen": {
+            "welcome_text": "Przed Tobą 27 stwierdzeń opisujących Styl Przywództwa. Zdecyduj, do którego z 4 stylów odnosi się każde stwierdzenie.",
+            "start_button": "ok"
+        },
+        "game_screen": {
+            "correct_count": "poprawne",
+            "wrong_count": "błędne"
+        },
+        "results_screen": {
+            "screen_title": "Twój wynik to:",
+            "check_request": "Sprawdź odpowiedzi klikając w poszczególne style zarządcze:"
+        }
+    },
+    "answers": [
+        { "text": "S1" },
+        { "text": "S2" },
+        { "text": "S3" },
+        { "text": "S4" }
+    ],
+    "randomize_questions": true,
+    "questions": [
+        {
+            "text": "Demonstruje krok po kroku, jak wykonać zadanie.",
+            "answer_id": 0
+        },
+        {
+            "text": "Bardzo szczegółowo określa cel i zadanie.",
+            "answer_id": 1
+        },
+        {
+            "text": "Udziela dyrektywnej informacji zwrotnej.",
+            "answer_id": 2
+        },
+        {
+            "text": "Decyzje co do sposobu realizacji zadania podejmuje przełożony.",
+            "answer_id": 3
+        }
+    ]
+}

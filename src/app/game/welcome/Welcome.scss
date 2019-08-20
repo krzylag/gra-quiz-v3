@@ -1,0 +1,39 @@
+@import '../../../variables';
+
+.Welcome {
+    
+    .textcloud {
+        position: relative;
+        padding: 2em;
+        margin: 2em;
+        max-width: 25em;
+        border: 2px solid map-get($theme-colors, primary);
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+
+        &:before {
+            content: '';
+            border: 2px solid map-get($theme-colors, primary);
+            border-right: none;
+            border-top: none;
+            background-color: #FFF;
+            position: absolute;
+            bottom: 1em;
+            left: 0;
+            width: 2em;
+            height: 2.5em;
+            border-bottom-left-radius: 10px;
+            transform: skewY(-42deg) translate(-2px, calc( 2em - 2px ) );
+        } 
+
+        .text {
+            z-index: 2;
+        }
+
+    }
+
+    .buttons {
+        text-align: center;
+    }
+}

@@ -1,0 +1,142 @@
+{
+    "package_title": "Przywództwo sytuacyjne",
+    "translations": {
+        "login_screen": {
+            "game_title": "Przywództwo sytuacyjne",
+            "pin_request": "Wpisz numer PIN podany przez prowadzacego ćwiczenie.",
+            "pin_placeholder": "PIN",
+            "name_request": "Wpisz swoje imię",
+            "name_placeholder": "imię",
+            "start_button": "start"
+        },
+        "welcome_screen": {
+            "welcome_text": "Przed Tobą 27 stwierdzeń opisujących Styl Przywództwa. Zdecyduj, do którego z 4 stylów odnosi się każde stwierdzenie.",
+            "start_button": "ok"
+        },
+        "game_screen": {
+            "correct_count": "poprawne",
+            "wrong_count": "błędne"
+        },
+        "results_screen": {
+            "screen_title": "Twój wynik to:",
+            "check_request": "Sprawdź odpowiedzi klikając w poszczególne style zarządcze:"
+        }
+    },
+    "answers": [
+        { "text": "S1" },
+        { "text": "S2" },
+        { "text": "S3" },
+        { "text": "S4" }
+    ],
+    "randomize_questions": true,
+    "questions": [
+        {
+            "text": "Demonstruje krok po kroku, jak wykonać zadanie.",
+            "answer_id": 0
+        },
+        {
+            "text": "Bardzo szczegółowo określa cel i zadanie.",
+            "answer_id": 0
+        },
+        {
+            "text": "Udziela dyrektywnej informacji zwrotnej.",
+            "answer_id": 0
+        },
+        {
+            "text": "Decyzje co do sposobu realizacji zadania podejmuje przełożony.",
+            "answer_id": 0
+        },
+        {
+            "text": "Dzieli złożone zadania na etapy.",
+            "answer_id": 0
+        },
+        {
+            "text": "Często monitoruje etapy realizacji zadań, sprawdza postępy.",
+            "answer_id": 0
+        },
+        {
+            "text": "Podczas zlecania zadania – mówi głównie przełożony.",
+            "answer_id": 0
+        },
+        {
+            "text": "Buduje zaangażowanie pracownika poprzez rozwój kompetencji oraz dawanie coraz większej autonomii.",
+            "answer_id": 1
+        },
+        {
+            "text": "Pyta pracownika o pomysły na sposób realizacji zadania, a następnie ocenia je  i wskazuje najlepsze rozwiązanie.",
+            "answer_id": 1
+        },
+        {
+            "text": "Przełożony dyskutuje z pracownikiem, co do sposobów działań, ale sam decyduje, które rozwiązanie jest najlepsze.",
+            "answer_id": 1
+        },
+        {
+            "text": "Sprawdza co pracownik umie, a w jakim zakresie potrzebuje wsparcia w samodzielnym działaniu.",
+            "answer_id": 1
+        },
+        {
+            "text": "Udziela ogólnej instrukcji.",
+            "answer_id": 1
+        },
+        {
+            "text": "Podnosi poprzeczkę, zachęca i wymaga coraz większej samodzielności, jednocześnie będąc dostępnym w razie błędów i trudności.",
+            "answer_id": 1
+        },
+        {
+            "text": "Umożliwia i zachęca do samodzielności, nie radzi.",
+            "answer_id": 2
+        },
+        {
+            "text": "Dostrzega sygnały spadku motywacji i reaguje na nie udzielając wsparcia w samodzielnym znalezieniu rozwiązania.",
+            "answer_id": 2
+        },
+        {
+            "text": "Zachęca i poprzez zadawanie pytań otwartych pomaga w podejmowaniu decyzji.",
+            "answer_id": 2
+        },
+        {
+            "text": "Ostateczną decyzję co do realizacji zadania, podejmuje pracownik, a szef ją akceptuje.",
+            "answer_id": 2
+        },
+        {
+            "text": "Buduje zaufanie i wiarę we własne możliwości pracownika w sytuacji kryzysu.",
+            "answer_id": 2
+        },
+        {
+            "text": "Słucha problemów pracownika unikając krytyki i oceniania.",
+            "answer_id": 2
+        },
+        {
+            "text": "W sytuacji spadku zaangażowania koncentruje się w rozmowie głównie na zmianie nastawienia, czy przekonań pracownika, wskazuje na jego dawne sukcesy.",
+            "answer_id": 2
+        },
+        {
+            "text": "Przekazuje szeroką odpowiedzialność za określanie celów, planowanie swojej pracy.",
+            "answer_id": 3
+        },
+        {
+            "text": "Daje dużą  autonomię i swobodę w podejmowaniu decyzji.",
+            "answer_id": 3
+        },
+        {
+            "text": "Daje pełną samodzielność, ale jest dostępny w razie potrzeby.",
+            "answer_id": 3
+        },
+        {
+            "text": "Decyzje podejmuje sam pracownik.",
+            "answer_id": 3
+        },
+        {
+            "text": "Pozwala pracownikowi podejmować ryzyko i wprowadzać innowacje.",
+            "answer_id": 3
+        },
+        {
+            "text": "Docenia wagę i wkład pracownika w organizacji.",
+            "answer_id": 3
+        },
+        {
+            "text": "Darzy pracownika zaufaniem i monitoruje realizacje celu zgodnie z umową.",
+            "answer_id": 3
+        }
+    ]
+}

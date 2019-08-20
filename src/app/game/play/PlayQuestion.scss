@@ -1,0 +1,23 @@
+@import '../../../variables';
+
+.PlayQuestion {
+    
+    flex: 1;
+    text-align: center;
+
+    display: flex;
+
+    .PlayQuestionFlex {
+
+        margin: auto;
+
+        .title {
+            font-weight: bold;
+            margin: 1em;
+        }
+    
+        .buttons {
+            margin-top: 2em;
+        }
+    }
+}

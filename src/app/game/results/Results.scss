@@ -1,0 +1,15 @@
+@import '../../../variables';
+
+.Results {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    padding: 1em;
+
+    font-size: 1.2em;
+
+    .result-summary {
+        font-size: 1.5em;
+        color: map-get($theme-colors, primary);
+    }
+}

@@ -1,0 +1,26 @@
+@import '../../../variables';
+
+.Login {
+    text-align: center;
+
+    &>div {
+        margin: 1em 0;
+    }
+
+    .area {
+        margin: 2em 0;
+
+        .title {
+            font-weight: bold;
+        }
+
+        input {
+            text-align: center;
+        }
+    }
+
+    .user-exists-alert {
+        margin: 1em;
+        color: map-get($theme-colors, danger);
+    }
+}

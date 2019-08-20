@@ -1,0 +1,19 @@
+@import '../../../variables';
+
+.ResultsDetails {
+   
+    margin: 1em;
+    display: inline-block;
+    text-align: left;
+
+    .answer {
+        margin: 0.25em 0;        
+
+        &.is-good {
+            color: map-get($theme-colors, success);
+        }
+        &.is-bad {
+            color: map-get($theme-colors, danger);
+        }
+    }
+}
