@@ -3,6 +3,10 @@
 @import '~bootstrap/scss/bootstrap';
 
 
+body {
+    font-family: $font;
+}
+
 #root {
     position: absolute;
     top: 0;
