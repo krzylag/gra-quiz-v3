@@ -49,6 +49,67 @@ function getPackage($hash) {
     ];
 }
 
+function reportGet($hash) {
+    GLOBAL $DB;
+    $prepUsers = $DB->prepare("
+        SELECT 
+            u.id AS uid, u.name, u.deleted_at,
+            a.id AS aid, a.correct_json, a.wrong_json, a.created_at
+        FROM 
+            users AS u 
+            LEFT JOIN groups AS g ON g.id=u.group_id 
+            LEFT JOIN answers AS a ON a.user_id=u.id
+        WHERE 
+            g.package_hash=:phash 
+            AND u.deleted_at IS NULL 
+            AND g.deleted_at IS NULL
+    ");
+    $prepUsers->bindParam(":phash", $hash, PDO::PARAM_STR);
+    $resUsers = $prepUsers->execute();
+    $fetchUsers = $prepUsers->fetchAll(PDO::FETCH_ASSOC);
+    $users = [];
+    foreach ($fetchUsers AS $row) {
+        if (!isset($users[$row['uid']])) {
+            $users[$row['uid']]=[
+                "id" => (int) $row['uid'],
+                "name" => $row['name'],
+                "deleted_at" => $row['deleted_at'],
+                "answers" => []
+            ];
+        }
+        if ($row['aid']!==null) {
+            $answer=[];
+            foreach (json_decode($row['correct_json']) AS $ans) {
+                $answer[]=[ "q"=>$ans->q, "a"=>$ans->a, "r"=>true ];
+            }
+            foreach (json_decode($row['wrong_json']) AS $ans) {
+                $answer[]=[ "q"=>$ans->q, "a"=>$ans->a, "r"=>false ];
+            }
+            usort($answer, function($a,$b) {
+                return ($a['q'] - $b['q']);
+            });
+            $users[$row['uid']]['answers'][$row['created_at']]=[
+                "id" => (int) $row['aid'],
+                "answer" => $answer,
+                "created_at" => $row['created_at']
+            ];
+        }
+    }
+    foreach ($users AS &$u) {
+        usort($users[$u['id']]['answers'], function($a,$b) {
+            return strtotime($b['created_at'])-strtotime($a['created_at']);
+        });
+        if (isset($users[$u['id']]['answers'][0])) {
+            $users[$u['id']]['answers']=$users[$u['id']]['answers'][0];
+        }
+    }
+    
+    return [
+        "result" => ($resUsers),
+        "hash" => $hash,
+        "users" => $users
+    ];
+}
 
 /*
 function getAnswersFromGroup($groupName) {

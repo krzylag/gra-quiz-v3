@@ -83,6 +83,78 @@ function createGroup($name, $hash) {
     }
 }
 
+function uploadAnswer($userId, $answers) {
+    GLOBAL $DB;
+
+    $correctPayload = [];
+    $wrongPayload = [];
+    foreach ($answers AS $answer) {
+        if ($answer['a']) {
+            $correctPayload[]=[
+                "q" => $answer['qId'],
+                "a" => $answer['aId']
+            ];
+        } else {
+            $wrongPayload[]=[
+                "q" => $answer['qId'],
+                "a" => $answer['aId']
+            ];
+        }
+    }
+    $correctPayload = json_encode($correctPayload);
+    $wrongPayload = json_encode($wrongPayload);
+
+    $prepAU = $DB->prepare("INSERT INTO answers (user_id, correct_json, wrong_json, created_at) VALUES (:usid, :corr, :wron, :cat )");
+    $prepAU->bindParam(":usid", $userId, PDO::PARAM_INT);
+    $prepAU->bindParam(":corr", $correctPayload, PDO::PARAM_STR);
+    $prepAU->bindParam(":wron", $wrongPayload, PDO::PARAM_STR);
+    $now = (new DateTime())->format("c");
+    $prepAU->bindParam(":cat", $now, PDO::PARAM_STR);
+    $resAU = $prepAU->execute();
+    $newId = $DB->lastInsertId();
+    return [
+        "result" => $resAU,
+        "answer_id" => ($resAU) ? (int) $newId : null
+    ];
+}
+
+function deleteGroup($hash) {
+    GLOBAL $DB;
+    $prepSrc = $DB->prepare("
+        SELECT u.id AS uid, g.id AS gid 
+        FROM groups AS g
+        LEFT JOIN users AS u ON u.group_id=g.id
+        WHERE g.package_hash = :phash
+    ");
+    $prepSrc->bindParam(":phash", $hash, PDO::PARAM_STR);
+    $resSrc = $prepSrc->execute();
+    $fetchSrc = $prepSrc->fetchAll(PDO::FETCH_ASSOC);
+    $ids = [
+        "g" => [],
+        "u" => []
+    ];
+    foreach ($fetchSrc AS $row) {
+        if ($row['gid']!==null && !isset($ids['g'][$row['gid']])) {
+            $ids['g'][$row['gid']]=$row['gid'];
+        }
+        if ($row['uid']!==null && !isset($ids['u'][$row['uid']])) {
+            $ids['u'][$row['uid']]=$row['uid'];
+        }
+    }
+    if (sizeof($ids['u'])>0) {
+        $prepDU = $DB->prepare("UPDATE users SET deleted_at = :dat WHERE id IN (".implode(", ",$ids['u']).")");
+        $now = (new DateTime())->format("Y-m-d H:i:s");
+        $prepDU->bindParam(":dat", $now, PDO::PARAM_STR);
+        $resDU = $prepDU->execute();
+    } else {
+        $resDU=null;
+    }
+    return [
+        "result" => ($resSrc && $resDU),
+        "result_src" => $resSrc,
+        "result_du" => $resDU
+    ];
+}
 
 /*
 function registerAnswer($uname, $gname, $countCorrect, $countWrong, $arrayWrong) {

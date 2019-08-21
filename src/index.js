@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './index.scss';
 import Manage from './app/manage/Manage';
 import Game from './app/game/Game';
+import Report from './app/report/Report';
 
 let tempServerAddress;
 if (typeof(process.env.REACT_APP_OVERRIDE_SERVER_URL)==='string' && process.env.REACT_APP_OVERRIDE_SERVER_URL!=='' && process.env.REACT_APP_OVERRIDE_SERVER_URL!==null) {
@@ -20,6 +21,15 @@ ReactDOM.render(
                 <Manage
                     params={{
                         param1: (props.match.params.param1) ? props.match.params.param1 : null,
+                        param2: (props.match.params.param2) ? props.match.params.param2 : null,
+                        param3: (props.match.params.param3) ? props.match.params.param3 : null
+                    }}
+                />
+            )} />
+            <Route path="/report/:param1?/:param2?/:param3?" render={(props)=>(
+                <Report
+                    pin={(props.match.params.param1) ? props.match.params.param1 : null}
+                    params={{
                         param2: (props.match.params.param2) ? props.match.params.param2 : null,
                         param3: (props.match.params.param3) ? props.match.params.param3 : null
                     }}

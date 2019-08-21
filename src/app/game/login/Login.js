@@ -16,7 +16,7 @@ export default class Login extends Component {
         this.state = {
             strings: {
                 "game_title": "",
-                "pin_request": "Wpisz numer PIN podany przez prowadzacego ćwiczenie.",
+                "pin_request": "Wpisz numer PIN<br />podany przez prowadzacego ćwiczenie.",
                 "pin_placeholder": "PIN",
                 "name_request": "Wpisz swoje imię",
                 "name_placeholder": "imię",
@@ -42,7 +42,7 @@ export default class Login extends Component {
                 </div>
                 {this.props.preselectedPin===null && 
                     <div className="area">
-                        <h4 className="text-primary font-weight-bold">{this.state.strings.pin_request}</h4>
+                        <h4 className="text-primary font-weight-bold" dangerouslySetInnerHTML={{__html: this.state.strings.pin_request}} />
                         <input type="text" value={this.state.tryPin} onChange={this.onPinChange} placeholder={this.state.strings.pin_placeholder} disabled={this.state.isFormDisabled} />
                     </div>
                 }

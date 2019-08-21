@@ -5,6 +5,8 @@ import './Game.scss';
 import Welcome from './welcome/Welcome';
 import Play from './play/Play';
 import Results from './results/Results';
+import { SERVER_URL } from '../../index';
+import Axios from 'axios';
 
 const NEXT_QUESTION_TIMEOUT_MS = 3000;
 
@@ -126,7 +128,15 @@ export default class Game extends Component {
 
     uploadAnswers() {
         console.log('uploading answers');
-        
+        Axios.post(SERVER_URL, {
+            action: 'answer-upload',
+            userid: this.state.user.id,
+            answers: this.state.answers
+        }).then((response)=>{
+            console.log(response.data);
+        }).catch((error)=>{
+            console.log(error.data);
+        })
     }
 
 }

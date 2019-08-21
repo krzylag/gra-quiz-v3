@@ -1,0 +1,15 @@
+@import '../../variables';
+
+.DetailsSelectorButton {
+
+    margin: 0.75em;
+
+    button {
+        font-weight: 700;
+        height: 3em;
+        width: 3em;
+        border-radius: 50%; 
+        -moz-border-radius: 50%; 
+        -webkit-border-radius: 50%;
+    }
+}

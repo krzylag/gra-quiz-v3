@@ -20,6 +20,9 @@
         "results_screen": {
             "screen_title": "Twój wynik to:",
             "check_request": "Sprawdź odpowiedzi klikając w poszczególne style zarządcze:"
+        },
+        "report_screen": {
+            "details_request": "Kliknij w wybrany przycisk, by zobaczyć prawidłowe odpowiedzi."
         }
     },
     "answers": [

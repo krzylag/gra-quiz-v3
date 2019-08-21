@@ -1,0 +1,16 @@
+@import '../../variables';
+
+.Report {
+
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+
+    .report-body {
+        margin-top: 5em;
+        flex: 1;
+        overflow-y: auto;
+    }
+}

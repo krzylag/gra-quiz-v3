@@ -1,0 +1,29 @@
+@import '../../variables';
+
+.ReportHeader {
+
+    padding: 0.5em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    
+
+    .rh-left {
+        button {
+            margin-right: 1em;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    .rh-right {
+        flex: 1;
+        text-align: right;
+    }
+
+
+}

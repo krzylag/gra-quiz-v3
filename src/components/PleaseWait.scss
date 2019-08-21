@@ -10,12 +10,18 @@
     z-index: 10;
 
     .layout {
-        display: inline-block;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
 
         .prefix, .suffix {
             display: inline-block;
             color: #BCBDBE;
             font-size: 1em;
+        }
+        .suffix {
+            margin-left: 0.5em;
         }
         .rotator {
             display: inline-block;

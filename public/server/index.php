@@ -19,6 +19,17 @@
                     isset($POST_DATA['package']) ? $POST_DATA['package'] : null
                 ));
                 break;
+            case 'answer-upload':
+                print json_encode(uploadAnswer(
+                    isset($POST_DATA['userid']) ? $POST_DATA['userid'] : null,
+                    isset($POST_DATA['answers']) ? $POST_DATA['answers'] : null
+                ));
+                break;
+            case 'group-delete':
+                print json_encode(deleteGroup(
+                    isset($POST_DATA['hash']) ? $POST_DATA['hash'] : null
+                ));
+                break;
             default:
                 die("Unknown POST action: *".$POST_ACTION."*");
         }
@@ -39,6 +50,11 @@
                 break;
             case 'groups-list':
                 print json_encode(listGroups());
+                break;
+            case 'report-get':
+                print json_encode(reportGet(
+                    filter_input(INPUT_GET, 'hash', FILTER_SANITIZE_SPECIAL_CHARS)
+                ));
                 break;
             case '':   
                 break;

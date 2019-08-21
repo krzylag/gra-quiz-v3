@@ -1,0 +1,14 @@
+@import '../../variables';
+
+.ReportBodyRanking {
+
+    overflow-y: auto; 
+    padding: 1em;
+
+    table {
+        max-width: 30em;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+}
