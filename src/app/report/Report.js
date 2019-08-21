@@ -6,6 +6,7 @@ import PleaseWait from '../../components/PleaseWait';
 import ReportHeader from './ReportHeader';
 import ReportBodyRanking from './ReportBodyRanking';
 import ReportBodyDetails from './ReportBodyDetails';
+import { MetaTags } from 'react-meta-tags';
 
 
 const TO_FETCH_COUNT = 4;
@@ -156,6 +157,13 @@ export default class Report extends Component {
         }
         return (
             <div className="App Report">
+                {this.state.package!==null && this.state.package.css!==null &&
+                    <MetaTags>
+                        <style>
+                            {this.state.package.css}
+                        </style>
+                    </MetaTags>
+                }
                 <ReportHeader 
                     pageId={this.state.pageId}
                     onButtonClickCallback={this.onButtonClick}
@@ -175,7 +183,6 @@ export default class Report extends Component {
                         action: 'group-delete',
                         hash: this.state.group.package_hash
                     }).then((response)=>{
-                        console.log(response.data);
                         if (response.data.result) {
                             this.fetchReport();
                         }

@@ -14,6 +14,8 @@ export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            groups_list: null,
+            packages_list: null,
             strings: {
                 "game_title": "",
                 "pin_request": "Wpisz numer PIN<br />podany przez prowadzacego ćwiczenie.",
@@ -32,6 +34,59 @@ export default class Login extends Component {
         this.onNameChange=this.onNameChange.bind(this);
         this.onStartClicked=this.onStartClicked.bind(this);
         this.errorMessageTimeoutId=null;
+    }
+
+    componentDidMount() {
+        this.fetchGroups();
+        this.fetchPackages();
+    }
+
+    fetchGroups() {
+        Axios.get(SERVER_URL, {
+            params: {
+                action: 'groups-list'
+            }
+        }).then((response)=>{
+            this.setState({groups_list: response.data}, ()=>{
+                this.updateCSS();
+            });
+        }).catch((error)=>{
+            console.error(error.data);
+        });
+    }
+
+    fetchPackages() {
+        Axios.get(SERVER_URL, {
+            params: {
+                action: 'packages-list'
+            }
+        }).then((response)=>{
+            this.setState({packages_list: response.data}, ()=>{
+                this.updateCSS();
+            });
+        }).catch((error)=>{
+            console.error(error.data);
+        });
+    }
+
+    updateCSS() {
+        if (this.state.packages_list!==null && this.state.groups_list!==null) {
+            if (this.props.preselectedPin!==null) {
+                for(var gkey in this.state.groups_list) {
+                    if (this.state.groups_list[gkey].pin===this.props.preselectedPin) {
+                        let hash = this.state.groups_list[gkey].package_hash;
+                        for (var pkey in this.state.packages_list) {
+                            if(this.state.packages_list[pkey].hash===hash && this.state.packages_list[pkey].css!==null) {
+                                this.props.updateCssCallback(this.state.packages_list[pkey].css);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+
+        }
     }
 
     render() {
@@ -96,7 +151,6 @@ export default class Login extends Component {
                         }, ERROR_MESSAGE_TIMEOUT);
                     });
                 } else {
-                    console.log(response.data);
                     this.setState({isFormDisabled: false});
                 }
             }).catch((error)=>{

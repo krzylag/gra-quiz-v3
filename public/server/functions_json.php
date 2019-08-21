@@ -19,8 +19,13 @@ function getPackageData($packageName) {
     foreach ($parsed->questions AS $key=>$ans) {
         $parsed->questions[$key]->id=$key;
     }
+    $cssData = null;
+    $cssFile=PATH_PACKAGES.DIRECTORY_SEPARATOR.$packageName.'.css';
+    if (file_exists($cssFile)) {
+        $cssData=file_get_contents($cssFile);
+    }
     return [
         'json' => $parsed,
-        'css' => null
+        'css' => $cssData
     ];
 }

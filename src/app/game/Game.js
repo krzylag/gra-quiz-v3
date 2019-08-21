@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MetaTags from 'react-meta-tags';
 import Login from './login/Login';
 
 import './Game.scss';
@@ -7,6 +8,7 @@ import Play from './play/Play';
 import Results from './results/Results';
 import { SERVER_URL } from '../../index';
 import Axios from 'axios';
+
 
 const NEXT_QUESTION_TIMEOUT_MS = 3000;
 
@@ -28,6 +30,7 @@ export default class Game extends Component {
         this.onClickedSeenWelcome=this.onClickedSeenWelcome.bind(this);
         this.onReceiveAnswer=this.onReceiveAnswer.bind(this);
         this.onButtonComponentClicked=this.onButtonComponentClicked.bind(this);
+        this.onUpdateCss=this.onUpdateCss.bind(this);
     }
 
     render() {
@@ -38,12 +41,14 @@ export default class Game extends Component {
             <Login 
                 preselectedPin={this.props.preselectedPin}
                 onSuccessfullLoginCallback={this.onSuccessfullLogin}
+                updateCssCallback={this.onUpdateCss}
             />
         );
 
         else if (!this.state.seenWelcome) screenToRender = (
             <Welcome 
                 package={this.state.package}
+                package_css={this.state.package_css}
                 onClickedSeenWelcomeCallback={this.onClickedSeenWelcome}
             />
         )
@@ -71,6 +76,13 @@ export default class Game extends Component {
 
         return (
             <div className="App Game">
+                {this.state.package_css!==null &&
+                    <MetaTags>
+                        <style>
+                            {this.state.package_css}
+                        </style>
+                    </MetaTags>
+                }
                 {screenToRender}
             </div>
         )
@@ -127,16 +139,19 @@ export default class Game extends Component {
     }
 
     uploadAnswers() {
-        console.log('uploading answers');
         Axios.post(SERVER_URL, {
             action: 'answer-upload',
             userid: this.state.user.id,
             answers: this.state.answers
         }).then((response)=>{
-            console.log(response.data);
+            
         }).catch((error)=>{
-            console.log(error.data);
+            console.error(error.data);
         })
+    }
+
+    onUpdateCss(cssString) {
+        this.setState({package_css: cssString});
     }
 
 }

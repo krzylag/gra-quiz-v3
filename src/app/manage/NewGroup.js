@@ -88,7 +88,6 @@ export default class NewGroup extends Component {
                     name: this.state.groupName.trim(),
                     package: this.state.packageHash
                 }).then((response)=>{
-                    console.log(response.data);
                     if (response.data.result) {
                         this.setState({isCreating: false, isPosting: false}, ()=>{
                             this.props.onGroupsListUpdateCallback(response.data.groups);

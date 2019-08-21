@@ -11,8 +11,6 @@ export default class ReportBodyRanking extends Component {
     }
  
     render() {
-        console.log(this.props);
-
         var users = [];
         for (var ukey in this.props.report) {
             let user = this.props.report[ukey];

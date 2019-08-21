@@ -55,8 +55,6 @@ export default class Manage extends Component {
 
         if (this.state.packages_list===null || this.state.groups_list===null) return (<PleaseWait />);
 
-        console.log(this.state);
-
         var renderedRows = [];
         for (var pkey in this.state.groups_list) {
             var group = this.state.groups_list[pkey];
