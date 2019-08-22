@@ -1,0 +1,149 @@
+{
+    "package_title": "Gra DISC",
+    "translations": {
+        "login_screen": {
+            "game_title": "Gra DISC",
+            "pin_request": "Wpisz numer PIN podany przez prowadzacego ćwiczenie.",
+            "pin_placeholder": "PIN",
+            "name_request": "Wpisz swoje imię",
+            "name_placeholder": "imię",
+            "start_button": "start",
+            "player_existing": "Taka nazwa istnieje, użyj innej.",
+            "no_such_pin": "Błędny kod PIN, logowanie niemożliwe.",
+            "unknown_hash": "Wybrany schemat gry nie istnieje. Prowadzący grę musi poprawić konfigurację na ekranie zarządzania."
+        },
+        "welcome_screen": {
+            "welcome_text": "Przed Tobą 27 stwierdzeń opisujących sposoby komunikowania się z osobami o różnych stylach zachowania wg typologii DISC. Zdecyduj, do którego z 4 stylów odnosi się każde stwierdzenie.",
+            "start_button": "ok"
+        },
+        "game_screen": {
+            "correct_count": "poprawne",
+            "wrong_count": "błędne"
+        },
+        "results_screen": {
+            "screen_title": "Twój wynik to:",
+            "check_request": "Sprawdź odpowiedzi klikając w poszczególne style zarządcze:"
+        },
+        "report_screen": {
+            "details_request": "Kliknij w wybrany przycisk, by zobaczyć prawidłowe odpowiedzi."
+        }
+    },
+    "answers": [
+        { "text": "D" },
+        { "text": "I" },
+        { "text": "S" },
+        { "text": "C" }
+    ],
+    "randomize_questions": true,
+    "free_buttons_size": false,
+    "questions": [
+        {
+            "text": "Mów konkretnie i rzeczowo.",
+            "answer_id": 0
+        },
+        {
+            "text": "Podawaj fakty.",
+            "answer_id": 0
+        },
+        {
+            "text": "Pozwól mówić i słuchaj.",
+            "answer_id": 0
+        },
+        {
+            "text": "Bądź przygotowany.",
+            "answer_id": 0
+        },
+        {
+            "text": "Od razu przejdź do rzeczy.",
+            "answer_id": 0
+        },
+        {
+            "text": "Pytaj o zdanie, daj poczucie wpływu.",
+            "answer_id": 0
+        },
+        {
+            "text": "Doceń pozycję i opinie",
+            "answer_id": 0
+        },
+        {
+            "text": "Uśmiechnij się, nawiąż relację.",
+            "answer_id": 1
+        },
+        {
+            "text": "Rozmawiaj nieformalnie.",
+            "answer_id": 1
+        },
+        {
+            "text": "Pozwól wyrazić opinię.",
+            "answer_id": 1
+        },
+        {
+            "text": "Okazuj entuzjazm i zaangażowanie.",
+            "answer_id": 1
+        },
+        {
+            "text": "Odwołuj się do argumentów emocjonalnych.",
+            "answer_id": 1
+        },
+        {
+            "text": "Doceń pomysły.",
+            "answer_id": 1
+        },
+        {
+            "text": "Mów wolniej.",
+            "answer_id": 2
+        },
+        {
+            "text": "Daj czas do namysłu.",
+            "answer_id": 2
+        },
+        {
+            "text": "Zapewnij poczucie bezpieczeństwa.",
+            "answer_id": 2
+        },
+        {
+            "text": "Pytaj o opinię.",
+            "answer_id": 2
+        },
+        {
+            "text": "Daj wsparcie.",
+            "answer_id": 2
+        },
+        {
+            "text": "Zbuduj atmosferę.",
+            "answer_id": 2
+        },
+        {
+            "text": "Rozmawiaj na poziomie uczuć.",
+            "answer_id": 2
+        },
+        {
+            "text": "Ważna jest osobista relacja.",
+            "answer_id": 2
+        },
+        {
+            "text": "Mów spokojnie.",
+            "answer_id": 3
+        },
+        {
+            "text": "Słuchaj uważnie.",
+            "answer_id": 3
+        },
+        {
+            "text": "Dokładnie się przygotuj do spotkania.",
+            "answer_id": 3
+        },
+        {
+            "text": "Rzeczowo „do bólu”.",
+            "answer_id": 3
+        },
+        {
+            "text": "Potwierdzaj uzgodnienia.",
+            "answer_id": 3
+        },
+        {
+            "text": "Doceń konkretne działania.",
+            "answer_id": 3
+        }
+    ]
+}
