@@ -17,6 +17,7 @@ export default class DetailsSelector extends Component {
                     id={answerDef.id}
                     text={answerDef.text}
                     isSelected={isSelected}
+                    freeButtonsSize={this.props.package.json.free_buttons_size}
                     onSelectedCallback={this.props.onSelectedCallback}
                 />
             )

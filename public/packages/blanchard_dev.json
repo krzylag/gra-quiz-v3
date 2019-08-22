@@ -35,6 +35,7 @@
         { "text": "S4" }
     ],
     "randomize_questions": true,
+    "free_buttons_size": false,
     "questions": [
         {
             "text": "Demonstruje krok po kroku, jak wykonać zadanie.",

@@ -14,9 +14,12 @@ export default class ResultsSelectorButton extends Component {
         if (this.props.isSelected) {
             variant = 'primary';
         }
-        
+
+        var componentClasses = 'ResultsSelectorButton';
+        if (this.props.freeButtonsSize) componentClasses += ' free-button-size';
+
         return (
-            <div className="ResultsSelectorButton">
+            <div className={componentClasses}>
                 <Button
                     variant={variant}
                     onClick={this.onClicked}

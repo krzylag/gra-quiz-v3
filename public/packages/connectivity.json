@@ -1,0 +1,219 @@
+{
+    "package_title": "Audi Connectivity",
+    "translations": {
+        "login_screen": {
+            "game_title": "Audi Connectivity",
+            "pin_request": "Wpisz numer PIN podany przez prowadzacego ćwiczenie.",
+            "pin_placeholder": "PIN",
+            "name_request": "Wpisz swoje imię",
+            "name_placeholder": "imię",
+            "start_button": "start",
+            "player_existing": "Taka nazwa istnieje, użyj innej.",
+            "no_such_pin": "Błędny kod PIN, logowanie niemożliwe.",
+            "unknown_hash": "Wybrany schemat gry nie istnieje. Prowadzący grę musi poprawić konfigurację na ekranie zarządzania."
+        },
+        "welcome_screen": {
+            "welcome_text": "Wskaż, które funkcjonalności są obecne w aktualnie oferowanym systemie infotainment MIB2+. Na koncu otrzymasz informację o uzyskanej liczbie punktów oraz listę poprawnych odpowiedzi wraz z informacją o ewentualnych pomyłkach.",
+            "start_button": "ok"
+        },
+        "game_screen": {
+            "correct_count": "poprawne",
+            "wrong_count": "błędne"
+        },
+        "results_screen": {
+            "screen_title": "Twój wynik to:",
+            "check_request": "Sprawdź odpowiedzi klikając w odpowiedzi:"
+        },
+        "report_screen": {
+            "details_request": "Kliknij w wybrany przycisk, by zobaczyć prawidłowe odpowiedzi."
+        }
+    },
+    "answers": [
+        { "text": "Tak" },
+        { "text": "Nie" }
+    ],
+    "randomize_questions": true,
+    "free_buttons_size": true,
+    "questions": [
+        {
+            "text": "Połączenie w technologii LTE",
+            "answer_id": 0
+        },
+        {
+            "text": "Utworzenie hotspotu WIFI",
+            "answer_id": 0
+        },
+        {
+            "text": "Połączenie tylko w technologii 3G",
+            "answer_id": 1
+        },
+        {
+            "text": "Połączenie w technologii 5G",
+            "answer_id": 1
+        },
+        {
+            "text": "Napęd CD",
+            "answer_id": 1
+        },
+        {
+            "text": "Napęd DVD",
+            "answer_id": 0
+        },
+        {
+            "text": "Radio Online",
+            "answer_id": 0
+        },
+        {
+            "text": "Informacje drogowe Traffic",
+            "answer_id": 0
+        },
+        {
+            "text": "Slot kart SIM",
+            "answer_id": 0
+        },
+        {
+            "text": "DAB+",
+            "answer_id": 0
+        },
+        {
+            "text": "Google Earth",
+            "answer_id": 0
+        },
+        {
+            "text": "Mapy 3D",
+            "answer_id": 0
+        },
+        {
+            "text": "Połączenie rSAP",
+            "answer_id": 0
+        },
+        {
+            "text": "Haptyka",
+            "answer_id": 0
+        },
+        {
+            "text": "Cele wybierane głosowo",
+            "answer_id": 0
+        },
+        {
+            "text": "Cele wprowadzane przez rysowanie",
+            "answer_id": 0
+        },
+        {
+            "text": "Indywidualizacja",
+            "answer_id": 0
+        },
+        {
+            "text": "Jedno sparowane urządzenie BT",
+            "answer_id": 1
+        },
+        {
+            "text": "Dwa sparowane urządzenia BT",
+            "answer_id": 0
+        },
+        {
+            "text": "Tuner TV",
+            "answer_id": 0
+        },
+        {
+            "text": "Dysk SSD",
+            "answer_id": 0
+        },
+        {
+            "text": "Apple Car Play",
+            "answer_id": 0
+        },
+        {
+            "text": "Android Auto",
+            "answer_id": 0
+        },
+        {
+            "text": "Mirror Link",
+            "answer_id": 1
+        },
+        {
+            "text": "Ekran system infotainment 10,1”",
+            "answer_id": 0
+        },
+        {
+            "text": "Ekran system infotainment 8,6”",
+            "answer_id": 1
+        },
+        {
+            "text": "Ekran system infotainment 12,3”",
+            "answer_id": 1
+        },
+        {
+            "text": "Google Street View",
+            "answer_id": 1
+        },
+        {
+            "text": "Połączenie A2DP",
+            "answer_id": 0
+        },
+        {
+            "text": "Mapy Tom Tom",
+            "answer_id": 1
+        },
+        {
+            "text": "Mapy Here",
+            "answer_id": 0
+        },
+        {
+            "text": "Mapy Navigon",
+            "answer_id": 1
+        },
+        {
+            "text": "Funkcja Email",
+            "answer_id": 0
+        },
+        {
+            "text": "Obsługa Twittera",
+            "answer_id": 0
+        },
+        {
+            "text": "Obsługa Facebook",
+            "answer_id": 1
+        },
+        {
+            "text": "Obsługa YouTube",
+            "answer_id": 1
+        },
+        {
+            "text": "Obsługa Instagram",
+            "answer_id": 1
+        },
+        {
+            "text": "Obsługa głosowa",
+            "answer_id": 1
+        },
+        {
+            "text": "Inteligentna obsługa głosowa",
+            "answer_id": 0
+        },
+        {
+            "text": "Siri",
+            "answer_id": 1
+        },
+        {
+            "text": "Asystent Google",
+            "answer_id": 1
+        },
+        {
+            "text": "Przeglądarka Google Chrome",
+            "answer_id": 1
+        },
+        {
+            "text": "Program Outlook",
+            "answer_id": 1
+        },
+        {
+            "text": "Sklep online",
+            "answer_id": 1
+        },
+        {
+            "text": "Połączenie HFP",
+            "answer_id": 0
+        }
+    ]
+}

@@ -15,6 +15,7 @@ export default class ResultsSelector extends Component {
                     optionId={buttonId}
                     option={this.props.options[okey]}
                     isSelected={this.props.selectedOptionId===buttonId}
+                    freeButtonsSize={this.props.freeButtonsSize}
                     onButtonClickedCallback={this.props.onSelectorButtonClickedCallback}
                 />
             )

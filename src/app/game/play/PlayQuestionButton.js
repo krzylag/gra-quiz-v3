@@ -77,6 +77,10 @@ export default class PlayQuestionButton extends Component {
         if (this.props.isSelected) {
             containerClasses += ' is-selected';
         }
+
+        if (this.props.freeButtonSize) {
+            containerClasses += ' free-button-size';
+        }
         
         var variant = (variantBorder!==null) ? variantBorder+"-"+variantColor : variantColor;
 

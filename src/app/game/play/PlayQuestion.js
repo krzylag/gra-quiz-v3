@@ -36,6 +36,7 @@ export default class PlayQuestion extends Component {
                     isBad={isBad}
                     isSelected={isSelected}
                     shouldReveal={shouldReveal}
+                    freeButtonSize={this.props.package.free_buttons_size}
                 />
             );
         }
