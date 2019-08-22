@@ -124,8 +124,6 @@ export default class Game extends Component {
 
         }
 
-        console.log(this.state);
-
         return (
             <div className="App Game">
                 {this.state.package_css!==null &&

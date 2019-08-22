@@ -17,8 +17,6 @@ export default class InlinePackageUpdate extends Component {
 
     render() {
 
-        console.log(this.props);
-
         var renderedOptions = [];
         renderedOptions.push(
             <option key="0" value="none">--- nieznany ---</option>

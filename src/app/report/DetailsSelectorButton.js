@@ -19,7 +19,7 @@ export default class DetailsSelectorButton extends Component {
         }
 
         if (this.props.freeButtonsSize) componentClasses += ' free-button-size';
-        console.log(this.props);
+        
         return (
             <div className={componentClasses}>
                 <Button 
