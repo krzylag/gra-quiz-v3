@@ -2,33 +2,34 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 
 import { parsePin } from '../../../helpers/parsers';
-import { SERVER_URL } from '../../../index';
+import { comms } from '../../../helpers/communications';
 
 import './Login.scss';
-import Axios from 'axios';
 
-const ERROR_MESSAGE_TIMEOUT = 1500;
+const ERROR_MESSAGE_TIMEOUT = 2500;
+
+const DEFAULT_STRINGS = {
+    game_title: "",
+    pin_request: "Wpisz numer PIN<br />podany przez prowadzacego ćwiczenie.",
+    pin_placeholder: "PIN",
+    name_request: "Wpisz swoje imię",
+    name_placeholder: "imię",
+    start_button: "start",
+    player_existing: "Taka nazwa istnieje, użyj innej.",
+    no_such_pin: "Błędny kod PIN, logowanie niemożliwe.",
+    unknown_hash: "Wybrany schemat gry nie istnieje. Prowadzący grę musi poprawić konfigurację na ekranie zarządzania."
+};
 
 export default class Login extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            groups_list: null,
-            packages_list: null,
-            strings: {
-                "game_title": "",
-                "pin_request": "Wpisz numer PIN<br />podany przez prowadzacego ćwiczenie.",
-                "pin_placeholder": "PIN",
-                "name_request": "Wpisz swoje imię",
-                "name_placeholder": "imię",
-                "start_button": "start"
-            },
             tryPin: '',
             tryName: '',
             isButtonDisabled: true,
             isFormDisabled: false,
-            showErrorMessage: false
+            errorMessageText: null
         };
         this.onPinChange=this.onPinChange.bind(this);
         this.onNameChange=this.onNameChange.bind(this);
@@ -36,81 +37,36 @@ export default class Login extends Component {
         this.errorMessageTimeoutId=null;
     }
 
-    componentDidMount() {
-        this.fetchGroups();
-        this.fetchPackages();
-    }
-
-    fetchGroups() {
-        Axios.get(SERVER_URL, {
-            params: {
-                action: 'groups-list'
-            }
-        }).then((response)=>{
-            this.setState({groups_list: response.data}, ()=>{
-                this.updateCSS();
-            });
-        }).catch((error)=>{
-            console.error(error.data);
-        });
-    }
-
-    fetchPackages() {
-        Axios.get(SERVER_URL, {
-            params: {
-                action: 'packages-list'
-            }
-        }).then((response)=>{
-            this.setState({packages_list: response.data}, ()=>{
-                this.updateCSS();
-            });
-        }).catch((error)=>{
-            console.error(error.data);
-        });
-    }
-
-    updateCSS() {
-        if (this.state.packages_list!==null && this.state.groups_list!==null) {
-            if (this.props.preselectedPin!==null) {
-                for(var gkey in this.state.groups_list) {
-                    if (this.state.groups_list[gkey].pin===this.props.preselectedPin) {
-                        let hash = this.state.groups_list[gkey].package_hash;
-                        for (var pkey in this.state.packages_list) {
-                            if(this.state.packages_list[pkey].hash===hash && this.state.packages_list[pkey].css!==null) {
-                                this.props.updateCssCallback(this.state.packages_list[pkey].css);
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                }
-            }
-
-        }
-    }
-
     render() {
+
+        var game_title = (this.props.package===null) ? DEFAULT_STRINGS.game_title : this.props.package.translations.login_screen.game_title;
+        var pin_request = (this.props.package===null) ? DEFAULT_STRINGS.pin_request : this.props.package.translations.login_screen.pin_request;
+        var pin_placeholder = (this.props.package===null) ? DEFAULT_STRINGS.pin_placeholder : this.props.package.translations.login_screen.pin_placeholder;
+        var name_request = (this.props.package===null) ? DEFAULT_STRINGS.name_request : this.props.package.translations.login_screen.name_request;
+        var name_placeholder = (this.props.package===null) ? DEFAULT_STRINGS.name_placeholder : this.props.package.translations.login_screen.name_placeholder;
+        var start_button = (this.props.package===null) ? DEFAULT_STRINGS.start_button : this.props.package.translations.login_screen.start_button;
+
         return (
             <div className="Login">
                 <div className="area">
-                    <h3 className="text-dark font-weight-bold">{this.state.strings.game_title}</h3>
+                    <h3 className="text-dark font-weight-bold">{game_title}</h3>
                 </div>
                 {this.props.preselectedPin===null && 
                     <div className="area">
-                        <h4 className="text-primary font-weight-bold" dangerouslySetInnerHTML={{__html: this.state.strings.pin_request}} />
-                        <input type="text" value={this.state.tryPin} onChange={this.onPinChange} placeholder={this.state.strings.pin_placeholder} disabled={this.state.isFormDisabled} />
+                        <h4 className="text-primary font-weight-bold" dangerouslySetInnerHTML={{__html: pin_request}} />
+                        <input type="text" value={this.state.tryPin} onChange={this.onPinChange} placeholder={pin_placeholder} disabled={this.state.isFormDisabled} />
                     </div>
                 }
                 <div className="area">
-                    <h4 className="text-primary font-weight-bold">{this.state.strings.name_request}</h4>
-                    <input type="text" value={this.state.tryName} onChange={this.onNameChange} placeholder={this.state.strings.name_placeholder} disabled={this.state.isFormDisabled} />
+                    <h4 className="text-primary font-weight-bold">{name_request}</h4>
+                    <input type="text" value={this.state.tryName} onChange={this.onNameChange} placeholder={name_placeholder} disabled={this.state.isFormDisabled} />
                 </div>
                 <div className="area">
                     <Button variant="outline-secondary" onClick={this.onStartClicked} size="lg" disabled={this.state.isFormDisabled && this.state.isButtonDisabled}>
-                        {this.state.strings.start_button}
+                        {start_button}
                     </Button>
-                    {this.state.showErrorMessage && 
-                        <div className="user-exists-alert">Gracz istnieje. Użyj innej nazwy.</div>
+                    {this.state.errorMessageText!==null && 
+                        <div className="user-exists-alert">{this.state.errorMessageText}</div>
                     }
                 </div>
             </div>
@@ -132,33 +88,34 @@ export default class Login extends Component {
     onStartClicked() {
         this.hideErrorMessage();
         this.setState({isFormDisabled: true}, ()=>{
-            Axios.post(SERVER_URL, {
-                action: 'validate-new-login',
-                pin: (this.props.preselectedPin===null) ? this.state.tryPin : this.props.preselectedPin,
-                name: this.state.tryName.trim()
-            }).then((response)=>{
-                if (response.data.result) {
-                    this.props.onSuccessfullLoginCallback(
-                        response.data.package, 
-                        response.data.package_css,
-                        response.data.user_name,
-                        response.data.user_id
-                    )
-                } else if (!response.data.result && response.data.reason==='user-exists') {
-                    this.setState({isFormDisabled: false, showErrorMessage: true}, ()=>{
-                        this.errorMessageTimeoutId = setTimeout(() => {
-                            this.hideErrorMessage();
-                        }, ERROR_MESSAGE_TIMEOUT);
-                    });
-                } else {
-                    this.setState({isFormDisabled: false});
-                }
+
+            comms.validateNewLogin(
+                (this.props.preselectedPin===null) ? this.state.tryPin.trim() : this.props.preselectedPin,
+                this.state.tryName.trim()
+            ).then((data)=>{
+                this.props.onSuccessfullLoginCallback(
+                    data.package, 
+                    data.package_css,
+                    data.user_name,
+                    data.user_id
+                );
             }).catch((error)=>{
-                console.error(error.data);
-                this.setState({isFormDisabled: false});
+                var message = null;
+                if (error==='user-exists') {
+                    message = (this.props.package===null) ? DEFAULT_STRINGS.player_existing : this.props.package.translations.login_screen.player_existing; 
+                } else if (error==='no-such-pin') {
+                    message = (this.props.package===null) ? DEFAULT_STRINGS.no_such_pin : this.props.package.translations.login_screen.no_such_pin;
+                } else if (error==='unknown-package-hash') {
+                    message = (this.props.package===null) ? DEFAULT_STRINGS.unknown_hash : this.props.package.translations.login_screen.unknown_hash;
+                }
+                this.setState({isFormDisabled: false, errorMessageText: message}, ()=>{
+                    this.errorMessageTimeoutId = setTimeout(() => {
+                        this.hideErrorMessage();
+                    }, ERROR_MESSAGE_TIMEOUT);
+                });
             });
+
         })
-        
     }
 
     validateForm() {
@@ -172,6 +129,6 @@ export default class Login extends Component {
             clearTimeout(this.errorMessageTimeoutId);
             this.errorMessageTimeoutId=null;
         }
-        if (this.state.showErrorMessage) this.setState({showErrorMessage: false});
+        if (this.state.errorMessageText!==null) this.setState({errorMessageText: null});
     }
 }

@@ -23,33 +23,3 @@ function cors() {
 function endsWith($haystack, $needle) {
     return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== FALSE);
 }
-
-
-/*
-function readFromDB() {
-    if (file_exists(PATH_DB)) {
-        $raw = explode("\n",file_get_contents(PATH_DB));
-        $lines = array();
-        foreach ($raw AS $lineRaw) {
-            $line = trim($lineRaw);
-            if ($line!='') {
-                $lineOut = json_decode($line, $assoc=true);
-                $lineOut['correct'] = (int) $lineOut['correct'];
-                $lineOut['wrong'] = (int) $lineOut['wrong'];
-                foreach(array_keys($lineOut['wrongDetails']) AS $key) {
-                    $lineOut['wrongDetails'][$key] = (int) $lineOut['wrongDetails'][$key];
-                }
-                $lines[] = $lineOut;
-            }
-        }
-        usort($lines, 'sortLinesByCorrect');
-        return $lines;
-    } else {
-        return null;
-    }    
-}
-
-function sortLinesByCorrect($a, $b) {
-    return $b['correct']-$a['correct'];
-}
-*/

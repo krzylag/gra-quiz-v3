@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import MetaTags from 'react-meta-tags';
 import Login from './login/Login';
-
-import './Game.scss';
+import { comms } from '../../helpers/communications';
 import Welcome from './welcome/Welcome';
 import Play from './play/Play';
 import Results from './results/Results';
-import { SERVER_URL } from '../../index';
-import Axios from 'axios';
+import PleaseWait from '../../components/PleaseWait';
 
+import './Game.scss';
 
 const NEXT_QUESTION_TIMEOUT_MS = 3000;
 
@@ -17,62 +16,115 @@ export default class Game extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            groups_list: null,
+            packages_list: null,
+            pin: (typeof(this.props.preselectedPin)!=='undefined' && this.props.preselectedPin!==null && this.props.preselectedPin!=='') ? this.props.preselectedPin : null,
             package: null,
             package_css: null,
+
             user: null,
+
             answers: [],
             current_question_id: 0,
             seenWelcome: false,
             completedPlay: false
         };
+
         this.nextQuestionTimeoutId=null;
         this.onSuccessfullLogin=this.onSuccessfullLogin.bind(this);
         this.onClickedSeenWelcome=this.onClickedSeenWelcome.bind(this);
         this.onReceiveAnswer=this.onReceiveAnswer.bind(this);
         this.onButtonComponentClicked=this.onButtonComponentClicked.bind(this);
-        this.onUpdateCss=this.onUpdateCss.bind(this);
+    }
+
+    componentDidMount() {
+        comms.fetchGroupsList().then((data)=>{
+            this.setState({groups_list: data}, ()=>{
+                this._fetchPackageIfKnown();
+            });
+        });
+        comms.fetchPackagesList().then((data)=>{
+            this.setState({packages_list: data}, ()=>{
+                this._fetchPackageIfKnown();
+            });
+        });
+    }
+
+    _fetchPackageIfKnown() {
+        if (this.state.groups_list!==null && this.state.packages_list!==null && this.state.pin!==null) {
+            let tryGroup = this.state.groups_list[this.state.pin];
+            if (typeof(tryGroup)!=='undefined') {
+                let tryPackageShort = this.state.packages_list[tryGroup.package_hash];
+                if (typeof(tryPackageShort)!=='undefined') {
+                    comms.fetchPackage(tryPackageShort.hash).then((data)=>{
+                        this.setState({
+                            package: data.json,
+                            package_css: data.css
+                        });
+                    })
+                }
+            }
+        }
     }
 
     render() {
 
         var screenToRender;
 
-        if (this.state.package===null) screenToRender = (
-            <Login 
-                preselectedPin={this.props.preselectedPin}
-                onSuccessfullLoginCallback={this.onSuccessfullLogin}
-                updateCssCallback={this.onUpdateCss}
-            />
-        );
+        if (this.state.packages_list===null || this.state.groups_list===null) {
+            let total = 2;
+            let current = 0;
+            if (this.state.groups_list) current++;
+            if (this.state.packages_list) current++;
+            screenToRender = (
+                <PleaseWait suffix={"Łączenie z serwerem: "+current+" / "+total} />
+            );
 
-        else if (!this.state.seenWelcome) screenToRender = (
-            <Welcome 
-                package={this.state.package}
-                package_css={this.state.package_css}
-                onClickedSeenWelcomeCallback={this.onClickedSeenWelcome}
-            />
-        )
+        } else if (this.state.user===null) {
 
-        else if (!this.state.completedPlay) screenToRender = (
-            <Play 
-                user={this.state.user}
-                currentQuestionId={this.state.current_question_id}
-                answers={this.state.answers}
-                package={this.state.package}
-                package_css={this.state.package_css}
-                onReceiveAnswerCallback={this.onReceiveAnswer}
-                onButtonComponentClickedCallback={this.onButtonComponentClicked}
-            />
-        )
+            screenToRender = (
+                <Login 
+                    package={this.state.package}
+                    preselectedPin={this.props.preselectedPin}
+                    onSuccessfullLoginCallback={this.onSuccessfullLogin}
+                />
+            );
 
-        else screenToRender = (
-            <Results 
-                user={this.state.user}
-                answers={this.state.answers}
-                package={this.state.package}
-                package_css={this.state.package_css}
-            />
-        );
+        } else if (!this.state.seenWelcome) {
+
+            screenToRender = (
+                <Welcome 
+                    package={this.state.package}
+                    onClickedSeenWelcomeCallback={this.onClickedSeenWelcome}
+                />
+            );
+
+        } else if (!this.state.completedPlay) {
+
+            screenToRender = (
+                <Play 
+                    user={this.state.user}
+                    currentQuestionId={this.state.current_question_id}
+                    answers={this.state.answers}
+                    package={this.state.package}
+                    onReceiveAnswerCallback={this.onReceiveAnswer}
+                    onButtonComponentClickedCallback={this.onButtonComponentClicked}
+                />
+            );
+
+        } else {
+
+            screenToRender = (
+                <Results 
+                    user={this.state.user}
+                    answers={this.state.answers}
+                    package={this.state.package}
+                />
+            );
+
+        }
+
+        console.log(this.state);
 
         return (
             <div className="App Game">
@@ -131,27 +183,14 @@ export default class Game extends Component {
         var completedPlay = this.state.answers.length>=this.state.package.questions.length;
         if (completedPlay) {
             this.setState({completedPlay}, ()=>{
-                this.uploadAnswers();
+                comms.uploadAnswer(
+                    this.state.user.id,
+                    this.state.answers
+                );
             });
         } else {
             this.setState({current_question_id: this.state.current_question_id+1});
         }
-    }
-
-    uploadAnswers() {
-        Axios.post(SERVER_URL, {
-            action: 'answer-upload',
-            userid: this.state.user.id,
-            answers: this.state.answers
-        }).then((response)=>{
-            
-        }).catch((error)=>{
-            console.error(error.data);
-        })
-    }
-
-    onUpdateCss(cssString) {
-        this.setState({package_css: cssString});
     }
 
 }

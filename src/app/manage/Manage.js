@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { SERVER_URL } from '../../index';
 import PleaseWait from '../../components/PleaseWait';
-import Button from 'react-bootstrap/Button';
+import { comms } from '../../helpers/communications';
 import './Manage.scss';
 import ManageRow from './ManageRow';
 import NewGroup from './NewGroup';
@@ -15,39 +13,19 @@ export default class Manage extends Component {
             packages_list: null,
             groups_list: null
         };
-        this.onGroupsListUpdate=this.onGroupsListUpdate.bind(this);
+        this._fetchData=this._fetchData.bind(this);
     }
 
     componentDidMount() {
-        this.fetchPackagesList();
-        this.fetchGroupsList();
+        this._fetchData();
     }
 
-    fetchPackagesList() {
-        Axios.get(SERVER_URL, {
-            params: {
-                action: 'packages-list'
-            }
-        }).then((response)=>{
-            var packages = {};
-            for (var pkey in response.data) {
-                packages[response.data[pkey].hash]=response.data[pkey];
-            }
-            this.setState({packages_list: packages});
-        }).catch((error)=>{
-            console.error(error.data);
+    _fetchData() {
+        comms.fetchGroupsList().then((data)=>{
+            this.setState({groups_list: data});
         });
-    }
-
-    fetchGroupsList() {
-        Axios.get(SERVER_URL, {
-            params: {
-                action: 'groups-list'
-            }
-        }).then((response)=>{
-            this.setState({groups_list: response.data});
-        }).catch((error)=>{
-            console.error(error.data);
+        comms.fetchPackagesList().then((data)=>{
+            this.setState({packages_list: data});
         });
     }
 
@@ -64,6 +42,8 @@ export default class Manage extends Component {
                     key={pkey}
                     group={group}
                     packageData={packageData}
+                    packagesList={this.state.packages_list}
+                    onRequestRefetchCallback={this._fetchData}
                 />
             )
         }
@@ -87,13 +67,10 @@ export default class Manage extends Component {
                 <NewGroup 
                     packagesList={this.state.packages_list}
                     groupsList={this.state.groups_list}
-                    onGroupsListUpdateCallback={this.onGroupsListUpdate}
+                    onGroupCreatedCallback={this._fetchData}
                 />
             </div>
         )
     }
 
-    onGroupsListUpdate(newList) {
-        this.setState({groups_list: newList});
-    }
 }

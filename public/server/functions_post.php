@@ -11,6 +11,12 @@ function validateNewLogin($tryPin, $tryName) {
     $prepPinCheck->execute();
     $fetchPinCheck = $prepPinCheck->fetchAll(PDO::FETCH_ASSOC);
     if (sizeof($fetchPinCheck)>0) {
+        $packageRaw = getPackage($fetchPinCheck[0]['package_hash']);
+        if ($packageRaw['result']===false) return [
+            "result" => false,
+            "reason" => 'unknown-package-hash'
+        ];
+
         $prepUserCheck = $DB->prepare('SELECT * FROM users WHERE `name`=:uname AND group_id=:gid AND deleted_at IS NULL');
         $prepUserCheck->bindParam(':uname', $tryName, PDO::PARAM_STR);
         $prepUserCheck->bindParam(':gid', $fetchPinCheck[0]['id'], PDO::PARAM_INT);
@@ -118,36 +124,28 @@ function uploadAnswer($userId, $answers) {
     ];
 }
 
-function deleteGroup($hash) {
+function cleanGroup($pinCode) {
     GLOBAL $DB;
     $prepSrc = $DB->prepare("
         SELECT u.id AS uid, g.id AS gid 
         FROM groups AS g
         LEFT JOIN users AS u ON u.group_id=g.id
-        WHERE g.package_hash = :phash
+        WHERE g.pin = :pcode
     ");
-    $prepSrc->bindParam(":phash", $hash, PDO::PARAM_STR);
+    $prepSrc->bindParam(":pcode", $pinCode, PDO::PARAM_STR);
     $resSrc = $prepSrc->execute();
     $fetchSrc = $prepSrc->fetchAll(PDO::FETCH_ASSOC);
-    $ids = [
-        "g" => [],
-        "u" => []
-    ];
+    $usersIds = [];
     foreach ($fetchSrc AS $row) {
-        if ($row['gid']!==null && !isset($ids['g'][$row['gid']])) {
-            $ids['g'][$row['gid']]=$row['gid'];
-        }
-        if ($row['uid']!==null && !isset($ids['u'][$row['uid']])) {
-            $ids['u'][$row['uid']]=$row['uid'];
-        }
+        $usersIds[$row['uid']]=$row['uid'];
     }
-    if (sizeof($ids['u'])>0) {
-        $prepDU = $DB->prepare("UPDATE users SET deleted_at = :dat WHERE id IN (".implode(", ",$ids['u']).")");
+    if (sizeof($usersIds)>0) {
+        $prepDU = $DB->prepare("UPDATE users SET deleted_at = :dat WHERE id IN (".implode(", ",$usersIds).")");
         $now = (new DateTime())->format("Y-m-d H:i:s");
         $prepDU->bindParam(":dat", $now, PDO::PARAM_STR);
         $resDU = $prepDU->execute();
     } else {
-        $resDU=null;
+        $resDU=true;
     }
     return [
         "result" => ($resSrc && $resDU),
@@ -156,42 +154,26 @@ function deleteGroup($hash) {
     ];
 }
 
-/*
-function registerAnswer($uname, $gname, $countCorrect, $countWrong, $arrayWrong) {
-    $data = [
-        "username" => $uname, 
-        "groupname" => $gname, 
-        "correct" => $countCorrect, 
-        "wrong" => $countWrong, 
-        "wrongDetails" => $arrayWrong,
-        "serverTime" => (new DateTime())->format('c')
+function updateGroupHash($pinCode, $newHash) {
+    GLOBAL $DB;
+    $prepGU = $DB->prepare("UPDATE groups SET package_hash=:phash WHERE pin=:pcode");
+    $prepGU->bindParam(":phash", $newHash, PDO::PARAM_STR);
+    $prepGU->bindParam(":pcode", $pinCode, PDO::PARAM_STR);
+    $resGU = $prepGU->execute();
+    return [
+        "result" => $resGU
     ];
-    $r = file_put_contents(PATH_DB, json_encode($data)."\n", FILE_APPEND);
-    if ($r===false) {
-        return [
-            "result" => false,
-            "reason" => "Nie udało się zapisać do pliku bazy danych."
-        ];
-    } else {
-        return [
-            "result" => true,
-            "reason" => null
-        ];
-    }
 }
 
-function deleteAnswersFromGroup($groupName) {
-    $lines = readFromDB();
-    $lines = array_filter($lines, function($el) use ($groupName) {
-        return (isset($el['groupname']) && $el['groupname']!=$groupName);
-    });
-    file_put_contents(PATH_DB, "");
-    foreach ($lines AS $line) {
-        $r = file_put_contents(PATH_DB, json_encode($line)."\n", FILE_APPEND);
-    }
+function deleteGroup($pinCode) {
+    GLOBAL $DB;
+    $prepGD= $DB->prepare("UPDATE groups SET deleted_at=:ctime WHERE pin=:pcode");
+    $now = (new DateTime())->format("c");
+    $prepGD->bindParam(":ctime", $now, PDO::PARAM_STR);
+    $prepGD->bindParam(":pcode", $pinCode, PDO::PARAM_STR);
+    $resGD = $prepGD->execute();
     return [
-        "result" => true,
-        "reason" => null
+        "result" => $resGD
     ];
 }
-*/
+

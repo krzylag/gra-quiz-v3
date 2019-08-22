@@ -7,7 +7,10 @@
             "pin_placeholder": "PIN",
             "name_request": "Wpisz swoje imię",
             "name_placeholder": "imię",
-            "start_button": "start"
+            "start_button": "start",
+            "player_existing": "Taka nazwa istnieje, użyj innej.",
+            "no_such_pin": "Błędny kod PIN, logowanie niemożliwe.",
+            "unknown_hash": "Wybrany schemat gry nie istnieje. Prowadzący grę musi poprawić konfigurację na ekranie zarządzania."
         },
         "welcome_screen": {
             "welcome_text": "Przed Tobą 27 stwierdzeń opisujących Styl Przywództwa. Zdecyduj, do którego z 4 stylów odnosi się każde stwierdzenie.",

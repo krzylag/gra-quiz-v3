@@ -4,14 +4,17 @@
 function listGroups() {
     GLOBAL $DB;
     $prepGroups = $DB->prepare('SELECT * FROM groups WHERE deleted_at IS NULL ORDER BY created_at');
-    $prepGroups->execute();
+    $dbResult = $prepGroups->execute();
     $fetchGroups = $prepGroups->fetchAll(PDO::FETCH_ASSOC);
     $result=[];
     foreach ($fetchGroups AS $row) {
         $result[$row['id']]=$row;
         $result[$row['id']]['id']=(int) $row['id'];
     }
-    return $result;
+    return [
+        "result" => $dbResult,
+        "groups" => $result
+    ];
 }
 
 function listPackages() {
@@ -29,13 +32,16 @@ function listPackages() {
                 ];
             }
         }
-        
     }
-    return $result;
+    return [
+        "result" => true,
+        "packages" => $result
+    ];
 }
 
 function getPackage($hash) {
-    foreach (listPackages() AS $pack) {
+    $packages = listPackages();
+    foreach ($packages['packages'] AS $pack) {
         if ($pack['hash']==$hash) {
             return [
                 "result" => true,
@@ -111,38 +117,3 @@ function reportGet($hash) {
     ];
 }
 
-/*
-function getAnswersFromGroup($groupName) {
-    if ($groupName!=false && $groupName!=null) {
-        $lines = readFromDB();
-        return [
-            "result"    =>  true,
-            "reason"    => null,
-            "answers"   =>  array_filter($lines, function($el) use ($groupName) {
-                                return (isset($el['groupname']) && $el['groupname']==$groupName);
-                            })
-        ];
-    } else {
-        return [
-            "result"    => false,
-            "reason"    => "nie podano nazwy grupy",
-            "answers"   => null
-        ];
-    }
-}
-
-function getGroups() {
-    $lines = readFromDB();
-    $groups = [];
-    foreach ($lines as $line) {
-        if (!isset($groups[$line['groupname']])) {
-            $groups[$line['groupname']]=$line['groupname'];
-        }
-    }
-    sort($groups);
-    return [
-        "result" => true,
-        "groups" => $groups
-    ];
-}
-*/

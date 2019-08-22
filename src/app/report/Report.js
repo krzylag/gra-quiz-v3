@@ -1,28 +1,25 @@
 import React, { Component } from 'react';
 import './Report.scss';
-import Axios from 'axios';
-import { SERVER_URL } from '../../index';
+import { comms } from '../../helpers/communications';
 import PleaseWait from '../../components/PleaseWait';
 import ReportHeader from './ReportHeader';
 import ReportBodyRanking from './ReportBodyRanking';
 import ReportBodyDetails from './ReportBodyDetails';
 import { MetaTags } from 'react-meta-tags';
 
-
-const TO_FETCH_COUNT = 4;
 export default class Report extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            fetchedCount: 0,
             packages_list: null,
             groups_list: null,
             package: null,
             group: null,
             pin: (typeof(this.props.pin)==='undefined' || this.props.pin===null) ? null : this.props.pin,
             report: null,
-            pageId: "S"
+            pageId: "S",
+            noSuchReportError: false
         };
         this.onButtonClick=this.onButtonClick.bind(this);
     }
@@ -33,106 +30,73 @@ export default class Report extends Component {
     }
 
     fetchPackagesList() {
-        Axios.get(SERVER_URL, {
-            params: {
-                action: 'packages-list'
-            }
-        }).then((response)=>{
-            var packages = {};
-            for (var pkey in response.data) {
-                packages[response.data[pkey].hash]=response.data[pkey];
-            }
-            this.setState({packages_list: packages, fetchedCount: this.state.fetchedCount+1}, ()=>{
-                this.dispatch();
+        comms.fetchPackagesList().then((data)=>{
+            this.setState({packages_list: data}, ()=>{
+                this.fetchReportIfPossible();
+                this.fetchPackageIfPossible();
             });
-        }).catch((error)=>{
-            console.error(error.data);
         });
     }
 
     fetchGroupsList() {
-        Axios.get(SERVER_URL, {
-            params: {
-                action: 'groups-list'
+        comms.fetchGroupsList().then((data)=>{
+            var group = (typeof(data[this.state.pin])!=='undefined') ? data[this.state.pin] : null;
+            if (group===null) {
+                this.setState({noSuchReportError: true});
+            } else {
+                this.setState({groups_list: data, group: group}, ()=>{
+                    this.fetchReportIfPossible();
+                    this.fetchPackageIfPossible();
+                });
             }
-        }).then((response)=>{
-            var groups = {};
-            for (var gkey in response.data) {
-                groups[response.data[gkey].pin]=response.data[gkey];
-            }
-            this.setState({groups_list: groups, fetchedCount: this.state.fetchedCount+1}, ()=>{
-                this.dispatch();
-            });
-        }).catch((error)=>{
-            console.error(error.data);
         });
     }
     
-    fetchPackage() {
-        if (this.state.packages_list!==null && this.state.groups_list!==null) {
-            var hash = this.state.groups_list[this.state.pin].package_hash;
-            Axios.get(SERVER_URL,{
-                params: {
-                    action: 'package-get',
-                    hash: hash
-                }
-            }).then((response)=>{
-                if (response.data.result) {
-                    this.setState({
-                        package: response.data.package,
-                        fetchedCount: this.state.fetchedCount+1
-                    })
-                }
-            }).catch((error)=>{
-                console.error(error.data);
+    fetchPackageIfPossible() {
+        if (this.state.packages_list!==null && this.state.groups_list!==null && this.state.pin!==null && typeof(this.state.groups_list[this.state.pin])!=='undefined') {
+            comms.fetchPackage(
+                this.state.groups_list[this.state.pin].package_hash
+            ).then((data)=>{
+                this.setState({package: data});
             });
         }
     }
 
-    fetchReport() {
-        if (this.state.packages_list!==null && this.state.groups_list!==null) {
-            var hash = this.state.groups_list[this.state.pin].package_hash;
-            Axios.get(SERVER_URL,{
-                params: {
-                    action: 'report-get',
-                    hash: hash
-                }
-            }).then((response)=>{
-                if (response.data.result) {
-                    this.setState({
-                        group: this.state.groups_list[this.state.pin],
-                        report: response.data.users, 
-                        fetchedCount: this.state.fetchedCount+1
-                    })
-                }
-            }).catch((error)=>{
-                console.error(error.data);
+    fetchReportIfPossible() {
+        if (this.state.packages_list!==null && this.state.groups_list!==null && this.state.pin!==null && typeof(this.state.groups_list[this.state.pin])!=='undefined') {
+            comms.fetchReport(
+                this.state.groups_list[this.state.pin].package_hash
+            ).then((data)=>{
+                this.setState({report: data});
             });
-        }
-    }
-
-    dispatch() {
-        if (this.state.packages_list!==null && this.state.groups_list!==null) {
-            this.fetchReport();
-            this.fetchPackage();
         }
     }
 
     render() {
 
-        if (this.state.pin===null) return (
-            <div>W celu otwarcia raportu proszę posłużyć się linkiem z zarządzania.</div>
+        if (this.state.pin===null || this.state.noSuchReportError===true) return (
+            <div>
+                {this.state.noSuchReportError &&
+                    <div>Raport o kodzie PIN=[{this.state.pin}] nie istnieje.</div>
+                }
+                <div>W celu otwarcia raportu proszę posłużyć się linkiem z zarządzania.</div>
+            </div>
         );
 
-        if (this.state.report===null) return (
-            <PleaseWait 
-                suffix={" "+this.state.fetchedCount+" / "+TO_FETCH_COUNT}
-            />
-        );
-
-        if (this.state.package===null || this.state.group===null) return (
-            <div>W celu otwarcia raportu proszę posłużyć się linkiem z zarządzania.</div>
-        );
+        if (this.state.packages_list===null || this.state.groups_list===null || this.state.group===null || this.state.package===null || this.state.report===null) {
+            var toFetchCount = 5;
+            var fetchedCount = 0;
+            if (this.state.packages_list!==null) fetchedCount++;
+            if (this.state.groups_list!==null) fetchedCount++;
+            if (this.state.group!==null) fetchedCount++;
+            if (this.state.package!==null) fetchedCount++;
+            if (this.state.report!==null) fetchedCount++;
+            return (
+                <PleaseWait 
+                    suffix={" "+fetchedCount+" / "+toFetchCount}
+                />
+            );
+        }
         
         var renderedBody = '';
         switch (this.state.pageId) {
@@ -155,6 +119,7 @@ export default class Report extends Component {
                 );
                 break;
         }
+
         return (
             <div className="App Report">
                 {this.state.package!==null && this.state.package.css!==null &&
@@ -179,15 +144,10 @@ export default class Report extends Component {
         switch (newId) {
             case 'W':
                 if(window.confirm("Czy na pewno usunąć wszystkich graczy i ich odpowiedzi?")) {
-                    Axios.post(SERVER_URL, {
-                        action: 'group-delete',
-                        hash: this.state.group.package_hash
-                    }).then((response)=>{
-                        if (response.data.result) {
-                            this.fetchReport();
-                        }
-                    }).catch((error)=>{
-                        console.error(error.data);
+                    comms.cleanGroup(
+                        this.state.pin
+                    ).then(()=>{
+                        this.fetchReportIfPossible();
                     })
                 }
                 break;

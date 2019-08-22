@@ -25,9 +25,20 @@
                     isset($POST_DATA['answers']) ? $POST_DATA['answers'] : null
                 ));
                 break;
+            case 'group-clean':
+                print json_encode(cleanGroup(
+                    isset($POST_DATA['pin']) ? $POST_DATA['pin'] : null
+                ));
+                break;
+            case 'group-hash-update':
+                print json_encode(updateGroupHash(
+                    isset($POST_DATA['pin']) ? $POST_DATA['pin'] : null,
+                    isset($POST_DATA['hash']) ? $POST_DATA['hash'] : null
+                ));
+                break;
             case 'group-delete':
                 print json_encode(deleteGroup(
-                    isset($POST_DATA['hash']) ? $POST_DATA['hash'] : null
+                    isset($POST_DATA['pin']) ? $POST_DATA['pin'] : null
                 ));
                 break;
             default:
@@ -65,58 +76,3 @@
     }
 
     die("Undefined action.");
-
-/*
-    $actionPost = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
-    if ($actionPost==null || $actionPost==false) {
-        $dataPost=json_decode(file_get_contents("php://input"), true);
-        $actionPost=isset($dataPost['action']) ? $dataPost['action'] : null;
-    } else {
-        $dataPost=$_POST;
-    }
-    
-    if ($actionPost!==null && $actionPost!==false) {
-        switch($actionPost) {
-            case 'register':
-                print json_encode(registerAnswer(
-                    trim($dataPost['username']),
-                    trim($dataPost['groupname']),
-                    $dataPost['correct'],
-                    $dataPost['wrong'],
-                    $dataPost['wrongDetails']
-                ));
-                break;
-            case 'clear-group':
-                print json_encode(deleteAnswersFromGroup(
-                    isset($dataGet['groupname']) ? trim($dataGet['groupname']) : null
-                ));
-                break;
-            default:
-                die("Unknown POST action: *".$actionPost."*");
-        }
-        die();
-    }
-  
-    $actionGet = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
-    if ($actionGet!==null && $actionGet!==false) {
-        $dataGet=$_GET;
-        switch($actionGet) { 
-            case 'get-answers':
-                print json_encode(getAnswersFromGroup(
-                    isset($dataGet['groupname']) ? trim($dataGet['groupname']) : null
-                ));
-                break;
-            case 'get-groups':
-                print json_encode(getGroups());
-                break;
-            default:
-                die("Unknown GET action: *".$actionGet."*");
-        }
-        die();
-    }
-
-    require_once 'partials/header.php';
-    require_once 'partials/play.html';
-    require_once 'partials/footer.php';
-
-    */

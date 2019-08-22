@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import './NewGroup.scss';
 import Button from 'react-bootstrap/Button';
 import PleaseWait from '../../components/PleaseWait';
-import Axios from 'axios';
-import { SERVER_URL } from '../../index';
+import { comms } from '../../helpers/communications';
 
 export default class NewGroup extends Component {
 
@@ -83,22 +82,16 @@ export default class NewGroup extends Component {
     saveClicked() {
         if (this.state.groupName.trim()!=='' && this.state.packageHash!=='') {
             this.setState({isPosting: true}, ()=>{
-                Axios.post(SERVER_URL, {
-                    action: 'create-group',
-                    name: this.state.groupName.trim(),
-                    package: this.state.packageHash
-                }).then((response)=>{
-                    if (response.data.result) {
-                        this.setState({isCreating: false, isPosting: false}, ()=>{
-                            this.props.onGroupsListUpdateCallback(response.data.groups);
-                        });
-                    } else {
-                        this.setState({isPosting: false});
-                    }
-                }).catch((error)=>{
-                    console.error(error.data);
+                comms.createGroup(
+                    this.state.groupName.trim(),
+                    this.state.packageHash
+                ).then(()=>{
+                    this.setState({isPosting: false}, ()=>{
+                        this.props.onGroupCreatedCallback();
+                    });
+                }).catch(()=>{
                     this.setState({isPosting: false});
-                })
+                });
             });
         }
     }
