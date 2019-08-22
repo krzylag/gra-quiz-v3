@@ -8,6 +8,7 @@ import Results from './results/Results';
 import PleaseWait from '../../components/PleaseWait';
 
 import './Game.scss';
+import { shuffleArray } from '../../helpers/other';
 
 const NEXT_QUESTION_TIMEOUT_MS = 3000;
 
@@ -139,6 +140,9 @@ export default class Game extends Component {
     }
 
     onSuccessfullLogin(packageObj, package_css, userName, userId) {
+        if (packageObj.randomize_questions) {
+            shuffleArray(packageObj.questions);
+        }
         this.setState({
             package: packageObj,
             package_css,

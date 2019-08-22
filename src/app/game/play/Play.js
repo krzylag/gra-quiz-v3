@@ -8,10 +8,11 @@ export default class Play extends Component {
     constructor(props) {
         super(props);
         this.onQuestionAnswerSelected=this.onQuestionAnswerSelected.bind(this);
+        console.log(this.props);
     }
 
     render() {
-
+console.log(this.props.package.questions);
         var correctCount = 0;
         var wrongCount = 0;
         for (var akey in this.props.answers) {
