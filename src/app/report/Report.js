@@ -19,7 +19,8 @@ export default class Report extends Component {
             pin: (typeof(this.props.pin)==='undefined' || this.props.pin===null) ? null : this.props.pin,
             report: null,
             pageId: "S",
-            noSuchReportError: false
+            noSuchReportError: false,
+            isRefreshDisabled: false
         };
         this.onButtonClick=this.onButtonClick.bind(this);
     }
@@ -67,7 +68,7 @@ export default class Report extends Component {
             comms.fetchReport(
                 this.state.groups_list[this.state.pin].package_hash
             ).then((data)=>{
-                this.setState({report: data});
+                this.setState({report: data, isRefreshDisabled: false});
             });
         }
     }
@@ -131,6 +132,7 @@ export default class Report extends Component {
                 }
                 <ReportHeader 
                     pageId={this.state.pageId}
+                    isRefreshDisabled={this.state.isRefreshDisabled}
                     onButtonClickCallback={this.onButtonClick}
                 />
                 <div className="report-body">
@@ -150,6 +152,11 @@ export default class Report extends Component {
                         this.fetchReportIfPossible();
                     })
                 }
+                break;
+            case 'F':
+                this.setState({isRefreshDisabled: true}, () => {
+                    this.fetchReportIfPossible();
+                });
                 break;
             default:
                 this.setState({pageId: newId});

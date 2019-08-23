@@ -9,7 +9,10 @@
     width: 100vw;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     
+
 
     .rh-left {
         button {
@@ -20,8 +23,22 @@
         }
     }
 
+    .rh-middle {
+        text-align: center;
+
+        button {
+            margin: 0 0.15em;
+            padding: 0.25em;
+            svg {
+                height: 1.2em;
+                width: 1.2em; 
+                .svg-icon-refresh {
+                    fill: map-get($theme-colors, secondary);
+                }
+            }
+        }
+    }
     .rh-right {
-        flex: 1;
         text-align: right;
     }
 
