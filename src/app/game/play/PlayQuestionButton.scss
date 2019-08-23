@@ -52,6 +52,13 @@
     &.should-vibrate button {
         animation: button-shake 0.5s;
     }
+
+    button {
+        &:focus {
+            box-shadow: none;
+            outline: none;
+        }
+    }
 }
 
 @keyframes button-shake {
