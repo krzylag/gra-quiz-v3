@@ -125,6 +125,7 @@ export default class Game extends Component {
 
         }
 
+        if (this.state.package) window.document.title=this.state.package.package_title;
         return (
             <div className="App Game">
                 {this.state.package_css!==null &&
