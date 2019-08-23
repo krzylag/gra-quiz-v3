@@ -1,0 +1,152 @@
+{
+    "package_title": "Pokolenia - komunikacja",
+    "translations": {
+        "login_screen": {
+            "game_title": "Pokolenia - komunikacja",
+            "pin_request": "Wpisz numer PIN podany przez prowadzacego ćwiczenie.",
+            "pin_placeholder": "PIN",
+            "name_request": "Wpisz swoje imię",
+            "name_placeholder": "imię",
+            "start_button": "start",
+            "player_existing": "Taka nazwa istnieje, użyj innej.",
+            "no_such_pin": "Błędny kod PIN, logowanie niemożliwe.",
+            "unknown_hash": "Wybrany schemat gry nie istnieje. Prowadzący grę musi poprawić konfigurację na ekranie zarządzania."
+        },
+        "welcome_screen": {
+            "welcome_text": "Przed Tobą 28 wskazówek dla menedżera, jak motywować pracowników z&nbsp;różnych pokoleń. Zdecyduj, która rekomendacja motywuje BB, X, Y/Z, klikając w jeden z&nbsp;przycisków.",
+            "start_button": "ok"
+        },
+        "game_screen": {
+            "correct_count": "poprawne",
+            "wrong_count": "błędne"
+        },
+        "results_screen": {
+            "screen_title": "Twój wynik to:",
+            "check_request": "Sprawdź odpowiedzi klikając w poszczególne style zarządcze:"
+        },
+        "report_screen": {
+            "details_request": "Kliknij w wybrany przycisk, by zobaczyć prawidłowe odpowiedzi."
+        }
+    },
+    "answers": [
+        { "text": "BB" },
+        { "text": "X" },
+        { "text": "Y/Z" }
+    ],
+    "randomize_questions": true,
+    "free_buttons_size": false,
+    "questions": [
+        {
+            "text": "Pomagaj przejść przez zmianę etapami.",
+            "answer_id": 0
+        },
+        {
+            "text": "Doceniaj wiedzę i lojalność.",
+            "answer_id": 0
+        },
+        {
+            "text": "Pomóż czuć się ważnym.",
+            "answer_id": 0
+        },
+        {
+            "text": "Doceniaj identyfikację z zespołem.",
+            "answer_id": 0
+        },
+        {
+            "text": "Zachęcaj do zmian wskazując osobiste korzyści.",
+            "answer_id": 0
+        },
+        {
+            "text": "Przydziel rolę mentora.",
+            "answer_id": 0
+        },
+        {
+            "text": "Zachęcaj do wdrażania nowych działań.",
+            "answer_id": 0
+        },
+        {
+            "text": "Odpowiadaj na potrzebę osobistego kontaktu.",
+            "answer_id": 0
+        },
+        {
+            "text": "Pomagaj awansować, utrzymać status.",
+            "answer_id": 1
+        },
+        {
+            "text": "Doceniaj samodzielność i wytrwałość.",
+            "answer_id": 1
+        },
+        {
+            "text": "Pomóż więcej zarabiać.",
+            "answer_id": 1
+        },
+        {
+            "text": "Pracuj z wypaleniem zawodowym i rutyną.",
+            "answer_id": 1
+        },
+        {
+            "text": "Reaguj na „narzekactwo”.",
+            "answer_id": 1
+        },
+        {
+            "text": "Doceniaj lojalność i orientację na cele.",
+            "answer_id": 1
+        },
+        {
+            "text": "Doceniaj wytrwałość, odpowiedzialność.",
+            "answer_id": 1
+        },
+        {
+            "text": "Zachęcaj do upraszczania działań.",
+            "answer_id": 1
+        },
+        {
+            "text": "Pokazuj sens i znaczenie.",
+            "answer_id": 2
+        },
+        {
+            "text": "Przedkładaj relację nad podporządkowanie.",
+            "answer_id": 2
+        },
+        {
+            "text": "Wspieraj w rozwoju. – Bądź mentorem.",
+            "answer_id": 2
+        },
+        {
+            "text": "Bądź Liderem, a nie Administratorem.",
+            "answer_id": 2
+        },
+        {
+            "text": "Pokazuj, jakiego przyrostu umiejętności oczekujesz i jakie wsparcie oferujesz.",
+            "answer_id": 2
+        },
+        {
+            "text": "Bądź gotów na negocjacje.",
+            "answer_id": 2
+        },
+        {
+            "text": "Dawaj częsty i konkretny feedback.",
+            "answer_id": 2
+        },
+        {
+            "text": "Przedstawiaj intencje.",
+            "answer_id": 2
+        },
+        {
+            "text": "Interesuj się. - Pokaż, że Ci zależy.",
+            "answer_id": 2
+        },
+        {
+            "text": "Ucz patrzenia z szerszej perspektywy.",
+            "answer_id": 2
+        },
+        {
+            "text": "Stwarzaj możliwość do socjalizowania się.",
+            "answer_id": 2
+        },
+        {
+            "text": "Włącz do pracy element zabawy.",
+            "answer_id": 2
+        }
+    ]
+}
