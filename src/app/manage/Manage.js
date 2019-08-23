@@ -60,6 +60,7 @@ export default class Manage extends Component {
                             <th>#</th>
                             <th>gra</th>
                             <th>pin</th>
+                            <th>raport</th>
                             <th>pakiet</th>
                             <th>utworzono</th>
                         </tr>
