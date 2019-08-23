@@ -1,0 +1,21 @@
+@import '../../variables';
+
+.InlinePinUpdate {
+
+    .not-under-edit, .is-under-edit  {
+        button {
+            float: right;
+            margin: 0 0.15em;
+            padding: 0.25em;
+        }
+        svg {
+           height: 1.2em;
+           width: 1.2em; 
+        }
+    }
+
+    .pin-value {
+        width: 5em;
+    }
+
+}

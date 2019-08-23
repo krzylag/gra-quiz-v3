@@ -36,6 +36,12 @@
                     isset($POST_DATA['hash']) ? $POST_DATA['hash'] : null
                 ));
                 break;
+            case 'group-pin-update':
+                print json_encode(updateGroupPin(
+                    isset($POST_DATA['oldpin']) ? $POST_DATA['oldpin'] : null,
+                    isset($POST_DATA['newpin']) ? $POST_DATA['newpin'] : null
+                ));
+                break;
             case 'group-delete':
                 print json_encode(deleteGroup(
                     isset($POST_DATA['pin']) ? $POST_DATA['pin'] : null

@@ -3,6 +3,7 @@ import './ManageRow.scss';
 import Button from 'react-bootstrap/Button';
 import InlinePackageUpdate from './InlinePackageUpdate';
 import DeleteGroup from './DeleteGroup';
+import InlinePinUpdate from './InlinePinUpdate';
 
 export default class ManageRow extends Component {
 
@@ -15,7 +16,13 @@ export default class ManageRow extends Component {
             <tr className="ManageRow">
                 <td>{this.props.group.id}</td>
                 <td><a href={"/report/"+this.props.group.pin}>{this.props.group.name}</a></td>
-                <td>{this.props.group.pin}</td>
+                <td>
+                    <InlinePinUpdate 
+                        group={this.props.group}
+                        packageData={this.props.packageData}
+                        onPinUpdatedCallback={this.props.onRequestRefetchCallback}
+                    />
+                </td>
                 <td>
                     {isPackageKnown && this.props.packageData.title}
                     {!isPackageKnown && 

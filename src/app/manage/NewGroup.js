@@ -86,7 +86,7 @@ export default class NewGroup extends Component {
                     this.state.groupName.trim(),
                     this.state.packageHash
                 ).then(()=>{
-                    this.setState({isPosting: false}, ()=>{
+                    this.setState({isPosting: false, isCreating: false}, ()=>{
                         this.props.onGroupCreatedCallback();
                     });
                 }).catch(()=>{

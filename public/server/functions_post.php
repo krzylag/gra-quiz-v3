@@ -165,6 +165,27 @@ function updateGroupHash($pinCode, $newHash) {
     ];
 }
 
+function updateGroupPin($oldPin, $newPin) {
+    GLOBAL $DB;
+    $prepOPC = $DB->prepare("SELECT id FROM groups WHERE pin=:npin");
+    $prepOPC->bindParam(":npin", $newPin, PDO::PARAM_STR);
+    $resOPC = $prepOPC->execute();
+    $fetchOPC = $prepOPC->fetchAll(PDO::FETCH_ASSOC);
+    if (sizeof($fetchOPC)>0) {
+        return [
+            "result" => false,
+            "reason" => 'pin-occupied'
+        ];
+    }
+    $prepPU = $DB->prepare("UPDATE groups SET pin=:npin WHERE pin=:opin");
+    $prepPU->bindParam(":opin", $oldPin, PDO::PARAM_STR);
+    $prepPU->bindParam(":npin", $newPin, PDO::PARAM_STR);
+    $resPU = $prepPU->execute();
+    return [
+        "result" => $resPU
+    ];
+}
+
 function deleteGroup($pinCode) {
     GLOBAL $DB;
     $prepGD= $DB->prepare("UPDATE groups SET deleted_at=:ctime WHERE pin=:pcode");

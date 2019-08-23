@@ -204,6 +204,25 @@ class Communications {
         });
     }
 
+    updatePin(oldPin, newPin) {
+        return new Promise(function(resolve,reject) {
+            Axios.post(SERVER_URL, {
+                action: 'group-pin-update',
+                oldpin: oldPin,
+                newpin: newPin
+            }).then((response)=>{
+                if (response.data.result) {
+                    resolve();
+                } else {
+                    reject();
+                }
+            }).catch((error)=>{
+                console.error(error.data);
+                reject();
+            })
+        });
+    }
+
 
 }
 

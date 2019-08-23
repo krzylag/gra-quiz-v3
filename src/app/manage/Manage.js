@@ -47,6 +47,10 @@ export default class Manage extends Component {
                 />
             )
         }
+        renderedRows.sort((a,b)=>{
+            return a.props.group.id - b.props.group.id;
+        });
+        
         return (
             <div className="App Manage">
                 <h2 className="title">Lista gier:</h2>
