@@ -23,3 +23,23 @@ function cors() {
 function endsWith($haystack, $needle) {
     return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== FALSE);
 }
+
+function getDatabaseVersionOrCreate() {
+    GLOBAL $DB;
+    $prep = $DB->prepare("SELECT max(id) AS id FROM appversion");
+    $res = $prep->execute();
+    if ($res===false) {
+        $DB->exec(file_get_contents(PATH_DATABASE_SCRIPT));
+        $prep2 = $DB->prepare("SELECT max(id) AS id FROM appversion");
+        $res2 = $prep2->execute();
+        $fetched=$prep2->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        $fetched=$prep->fetchAll(PDO::FETCH_ASSOC);
+        $res2=true;
+    }
+    if ($res || $res2) {
+        return $fetched[0]['id'];
+    } else {
+        
+    }
+}

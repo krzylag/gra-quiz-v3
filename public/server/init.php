@@ -4,6 +4,7 @@
     define('PATH_SERVER', getcwd());
     define('PATH_BASE', dirname(PATH_SERVER));
     define('PATH_PACKAGES', PATH_BASE.DIRECTORY_SEPARATOR.'packages');
+    define('PATH_DATABASE_SCRIPT', PATH_SERVER.DIRECTORY_SEPARATOR.'database.sql');
     define('DEVELOPMENT_MODE', PATH_SERVER.DIRECTORY_SEPARATOR."DEVELOPMENT_MODE");
 
     if (DEVELOPMENT_MODE==true) {
@@ -31,7 +32,9 @@
 
     // Podłączenie bazy danych
     $DB = new PDO("mysql:host=".DB_HOST.";port=".DB_PORT.";dbname=".DB_DATABASE, DB_USERNAME, DB_PASSWORD);
-	$DB->exec('SET NAMES UTF8;');
+    $DB->exec('SET NAMES UTF8;');
+
+    define('APP_VERSION', getDatabaseVersionOrCreate());
 
     // Zezwolenie CORS
     cors();
