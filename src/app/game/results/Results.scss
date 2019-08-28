@@ -5,11 +5,18 @@
     width: 100%;
     text-align: center;
     padding: 1em;
+    padding-top: 5em;
 
     font-size: 1.2em;
 
     .result-summary {
         font-size: 1.5em;
         color: map-get($theme-colors, primary);
+    }
+
+    .new-game-button {
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
     }
 }

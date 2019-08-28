@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Results.scss';
 import ResultsSelector from './ResultsSelector';
 import ResultsDetails from './ResultsDetails';
+import Button from 'react-bootstrap/Button';
 
 export default class Results extends Component {
 
@@ -12,6 +13,7 @@ export default class Results extends Component {
             showCheckRequest: true
         };
         this.onSelectorButtonClicked=this.onSelectorButtonClicked.bind(this);
+        this.onClickedNewGame=this.onClickedNewGame.bind(this);
     }
 
     render() {
@@ -40,6 +42,9 @@ export default class Results extends Component {
                         package={this.props.package}
                     />
                 }
+                <div className="new-game-button">
+                    <Button variant="outline-secondary" onClick={this.onClickedNewGame}>nowa gra</Button>
+                </div>
             </div>
         )
     }
@@ -48,4 +53,7 @@ export default class Results extends Component {
         this.setState({selected_answer_id: optionId});
     }
 
+    onClickedNewGame() {
+        document.location=document.location.href;
+    }
 }
