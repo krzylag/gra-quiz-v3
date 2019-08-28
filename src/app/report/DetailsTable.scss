@@ -2,7 +2,7 @@
 
 .DetailsTable {
 
-    margin: 1em;
+    margin: 1em auto;
 
     table {
         max-width: 45em;
@@ -10,7 +10,8 @@
 
         td {
             vertical-align: middle;
-            padding: 0.5em 1em;
+            text-align: center;
+            padding: 1em;
         }
         .count {
             margin-left: 0.5em;
