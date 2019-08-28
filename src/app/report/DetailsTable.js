@@ -27,11 +27,19 @@ export default class DetailsTable extends Component {
             }
 
             renderedItems.push(
-                <tr key={questionDef.id}>
+                <tr key={questionDef.id} count={count} text={questionDef.text}>
                     <td>{questionDef.text}<div className="count">({count})</div></td>
                 </tr>
             );
         }
+
+        renderedItems.sort((a,b)=>{
+            if (a.props.count===b.props.count) {
+                return a.props.text.localeCompare(b.props.text);
+            } else {
+                return (b.props.count-a.props.count);
+            }
+        });
 
         return (
             <div className="DetailsTable">
