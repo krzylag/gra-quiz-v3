@@ -46,6 +46,7 @@
                 background-color: map-get($theme-colors, secondary);
                 color: map-get($theme-colors, light);
             }
+            opacity: 0.66;
         }
     }
 }
