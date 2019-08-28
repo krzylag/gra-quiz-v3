@@ -11,32 +11,26 @@ export default class PlayQuestion extends Component {
 
     render() {
 
+console.log(this.props);
+
+        let isAnswered=(typeof(this.props.answer)==='object' && typeof(this.props.answer.a)!=='undefined');
+
         var renderedButtons = [];
         for (var akey in this.props.package.answers) {
             let ans = this.props.package.answers[akey];
 
-            var isGood = false;
-            var isBad = false;
-            var isSelected = false;
-            var shouldReveal = false;
-            if (typeof(this.props.answer)!=='undefined' && this.props.answer!==null) {
-                shouldReveal=true;
-                isGood = (this.props.package.questions[this.props.questionId].answer_id===ans.id)
-                isBad = !isGood;
-                isSelected = (this.props.answer.aId===ans.id)
-            }
+            let isSelected=(isAnswered && this.props.answer.aId===ans.id);
+            let isCorrect=(this.props.package.questions[this.props.questionId].answer_id===ans.id);
 
             renderedButtons.push(
                 <PlayQuestionButton
                     key={ans.id}
                     answer={ans}
+                    isAnswered={isAnswered}
+                    isSelected={isSelected}
+                    isCorrect={isCorrect}
                     onAnswerSelectedCallback={this.onAnswerSelected}
                     onComponentClickedCallback={this.props.onButtonComponentClickedCallback}
-                    isGood={isGood}
-                    isBad={isBad}
-                    isSelected={isSelected}
-                    shouldReveal={shouldReveal}
-                    freeButtonSize={this.props.package.free_buttons_size}
                 />
             );
         }

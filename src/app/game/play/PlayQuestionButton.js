@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Button from 'react-bootstrap/Button';
-
 import './PlayQuestionButton.scss';
+import GameButton from '../../../components/GameButton';
 
 const VIBRATIONS_TIMEOUT = 1000;
 
@@ -10,22 +9,30 @@ export default class PlayQuestionButton extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            should_vibrate: false
+            should_vibrate: false,
+            should_pulse: false,
         }
         this.onButtonClicked = this.onButtonClicked.bind(this);
         this.onComponentClicked = this.onComponentClicked.bind(this);
         this.vibrationsTimeoutId = null;
+        this.pulseTimeoutId = null;
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.shouldReveal!=prevProps.shouldReveal) {
-            if (this.props.isGood) {
-                this.doVibrations();
-            } else {
-                this.stopVibrations();
+        if (this.props.isAnswered===true && prevProps.isAnswered===false) {
+            if (this.props.isCorrect) {
+                if (this.props.isSelected) {
+                    this.doPulse();
+                    this.stopVibrations();
+                } else {
+                    this.stopPulsing();
+                    this.doVibrations();
+                }
             }
+        } else if (this.props.isAnswered===false && prevProps.isAnswered===true) {
+            this.stopVibrations();
+            this.stopPulsing();
         }
-        
     }
 
     doVibrations() {
@@ -33,6 +40,16 @@ export default class PlayQuestionButton extends Component {
             this.setState({should_vibrate: true}, ()=>{
                 this.vibrationsTimeoutId = setTimeout(()=>{
                     this.stopVibrations();
+                }, VIBRATIONS_TIMEOUT);
+            });
+        }
+    }
+
+    doPulse() {
+        if (!this.state.should_pulse) {
+            this.setState({should_pulse: true}, ()=>{
+                this.pulseTimeoutId = setTimeout(()=>{
+                    this.stopPulsing();
                 }, VIBRATIONS_TIMEOUT);
             });
         }
@@ -46,67 +63,88 @@ export default class PlayQuestionButton extends Component {
         if (this.state.should_vibrate) this.setState({should_vibrate: false});
     }
 
+    stopPulsing() {
+        if (this.pulseTimeoutId!==null) {
+            clearTimeout(this.pulseTimeoutId);
+            this.pulseTimeoutId=null;
+        }
+        if (this.state.should_pulse) this.setState({should_pulse: false});
+    }
+
     componentWillUnmount() {
         this.stopVibrations();
+        this.stopPulsing();
     }
     
     render() {        
 
         var containerClasses = 'PlayQuestionButton';
 
-        var variantColor = 'primary';
-        var variantBorder = null;
-
         if (this.state.should_vibrate) {
             containerClasses += ' should-vibrate';
         }
-
-        if (!this.props.isSelected && (this.props.isGood || this.props.isBad) ) {
-            variantBorder = 'outline';
+        if (this.state.should_pulse) {
+            containerClasses += ' should-pulse';
         }
 
-        if (this.props.isGood) {
-            containerClasses += ' is-good';
-            variantColor = 'success';
-        }
-        if (this.props.isBad) {
-            containerClasses += ' is-bad';
-            variantColor = 'danger';
+        if (this.props.isCorrect) {
+            containerClasses += ' is-correct';
+        } else {
+            containerClasses += ' is-incorrect';
         }
 
         if (this.props.isSelected) {
             containerClasses += ' is-selected';
         }
 
-        if (this.props.freeButtonSize) {
-            containerClasses += ' free-button-size';
+        if (this.props.isAnswered) {
+            containerClasses += ' is-answered';
+        } else {
+            containerClasses += ' is-unanswered';
         }
-        
-        var variant = (variantBorder!==null) ? variantBorder+"-"+variantColor : variantColor;
+
+        var isGrayedOut;
+        var isDisabled;
+        if (this.props.isAnswered) {
+            isDisabled = true;
+            if (this.props.isCorrect) {
+                isGrayedOut = false;
+            } else {
+                isGrayedOut = true;
+            }
+        } else {
+            isDisabled = false;
+            isGrayedOut = false;
+        }
 
         return (
             <div className={containerClasses} onClick={this.onComponentClicked}>
-                <Button 
-                    variant={variant}
-                    onClick={this.onButtonClicked} 
-                >
-                    {this.props.answer.text}
-                </Button>
-                <div className="feedback-image">
-                    {this.props.isSelected && this.props.isGood && this.renderGoodSvg() }
-                    {this.props.isSelected && this.props.isBad && this.renderBadSvg() }
+                <GameButton
+                    buttonId={this.props.answer.id}
+                    text={this.props.answer.text}
+                    disabled={isDisabled}
+                    isGrayedOut={isGrayedOut}
+                    onButtonClicked={this.onButtonClicked}
+                    onDisabledButtonClicked={this.props.onComponentClicked}
+                />
+                <div className="feedback-image feedback-image-good">
+                    {this.renderGoodSvg()}
+                </div>
+                <div className="feedback-image feedback-image-bad">
+                    {this.renderBadSvg()}
                 </div>
             </div>
         )
     }
 
-    onButtonClicked() {
-        var isEnabled = (!this.props.isGood && !this.props.isBad && !this.props.isSelected);
-        if (isEnabled) this.props.onAnswerSelectedCallback(this.props.answer.id);
+    onButtonClicked(answerId) {
+        if (!this.props.isAnswered) {
+            this.props.onAnswerSelectedCallback(answerId);
+        }
     }
 
     onComponentClicked() {
-        if (this.props.isGood || this.props.isBad) {
+        if (this.props.isAnswered) {
             this.props.onComponentClickedCallback();
         }
     }

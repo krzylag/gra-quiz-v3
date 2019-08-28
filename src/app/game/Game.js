@@ -10,7 +10,7 @@ import PleaseWait from '../../components/PleaseWait';
 import './Game.scss';
 import { shuffleArray } from '../../helpers/other';
 
-const NEXT_QUESTION_TIMEOUT_MS = 3000;
+const NEXT_QUESTION_TIMEOUT_MS = 2500;
 
 export default class Game extends Component {
 

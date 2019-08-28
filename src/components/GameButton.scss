@@ -1,0 +1,51 @@
+@import '../variables';
+
+.GameButton {
+
+    display: inline-block;
+    margin: 0.5em;
+
+    button{
+        height: 2.75em;
+        width: 2.75em;
+    
+        font-size: 1.15em;
+        font-weight: bold;
+    
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+
+        border: none;
+        background-color: map-get($theme-colors, primary);
+        color: map-get($theme-colors, light);
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        outline: none;
+
+        &.disabled, &:disabled {
+            opacity: 1;
+        }
+        &:hover, &:active, &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled):focus, &:focus {
+            border: none;
+            background-color: map-get($theme-colors, primary);
+            color: map-get($theme-colors, light);
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            outline: none;
+        }
+    }
+    
+    &.is-grayed-out {
+        button{        
+            background-color: map-get($theme-colors, secondary);
+            color: map-get($theme-colors, light);  
+            &:hover, &:active, &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled):focus, &:focus {
+                background-color: map-get($theme-colors, secondary);
+                color: map-get($theme-colors, light);
+            }
+        }
+    }
+}

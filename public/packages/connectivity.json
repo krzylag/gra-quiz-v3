@@ -33,7 +33,6 @@
         { "text": "Nie" }
     ],
     "randomize_questions": true,
-    "free_buttons_size": true,
     "questions": [
         {
             "text": "Połączenie w technologii LTE",

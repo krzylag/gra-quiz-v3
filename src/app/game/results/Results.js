@@ -30,7 +30,6 @@ export default class Results extends Component {
                 }
                 <ResultsSelector 
                     options={this.props.package.answers}
-                    freeButtonsSize={this.props.package.free_buttons_size}
                     selectedOptionId={this.state.selected_answer_id}
                     onSelectorButtonClickedCallback={this.onSelectorButtonClicked}
                 />

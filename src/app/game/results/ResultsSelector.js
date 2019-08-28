@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './ResultsSelector.scss';
-import ResultsSelectorButton from './ResultsSelectorButton';
+import GameButton from '../../../components/GameButton';
 
 export default class ResultsSelector extends Component {
 
@@ -9,14 +9,15 @@ export default class ResultsSelector extends Component {
         var renderedButtons = [];
         for (var okey in this.props.options) {
             var buttonId = parseInt(okey);
+            console.log(this.props.selectedOptionId);
+            var isGrayedOut = (this.props.selectedOptionId!==null && this.props.selectedOptionId!==buttonId);
             renderedButtons.push(
-                <ResultsSelectorButton 
+                <GameButton 
                     key={okey}
-                    optionId={buttonId}
-                    option={this.props.options[okey]}
-                    isSelected={this.props.selectedOptionId===buttonId}
-                    freeButtonsSize={this.props.freeButtonsSize}
-                    onButtonClickedCallback={this.props.onSelectorButtonClickedCallback}
+                    buttonId={buttonId}
+                    text={this.props.options[okey].text}
+                    isGrayedOut={isGrayedOut}
+                    onButtonClicked={this.props.onSelectorButtonClickedCallback}
                 />
             )
         }
