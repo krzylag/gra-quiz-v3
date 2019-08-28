@@ -11,8 +11,6 @@ export default class PlayQuestion extends Component {
 
     render() {
 
-console.log(this.props);
-
         let isAnswered=(typeof(this.props.answer)==='object' && typeof(this.props.answer.a)!=='undefined');
 
         var renderedButtons = [];
