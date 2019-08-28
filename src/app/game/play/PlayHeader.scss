@@ -17,9 +17,6 @@
         justify-content: center;
         align-items: center;
 
-        .number {
-            padding: 0 0.5em;
-        }
         .progress {
             flex: 1;
             border: 1px solid map-get($theme-colors, primary);
@@ -30,5 +27,13 @@
     .partialcount {
         text-align: right;
         text-transform: uppercase;
+        .name, .value {
+            display: inline-block;
+        }
+    }
+
+    .pbar .number, .partialcount .value {
+        width: 2em;
+        text-align: center;
     }
 }

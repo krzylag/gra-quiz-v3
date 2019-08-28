@@ -24,8 +24,14 @@ export default class PlayHeader extends Component {
                         />
                         <div className="number">{this.props.max}</div>
                     </div>
-                    <div className="partialcount">{this.props.package.translations.game_screen.correct_count}: {this.props.correctCount}</div>
-                    <div className="partialcount">{this.props.package.translations.game_screen.wrong_count}: {this.props.wrongCount}</div>
+                    <div className="partialcount">
+                        <div className="name">{this.props.package.translations.game_screen.correct_count}:</div>
+                        <div className="value">{this.props.correctCount}</div>
+                    </div>
+                    <div className="partialcount">
+                        <div className="name">{this.props.package.translations.game_screen.wrong_count}:</div>
+                        <div className="value">{this.props.wrongCount}</div>
+                    </div>
                 </div>
             </div>
         )
