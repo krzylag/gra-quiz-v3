@@ -120,6 +120,7 @@ export default class Report extends Component {
                     />
                 );
                 break;
+            default:
         }
 
         return (

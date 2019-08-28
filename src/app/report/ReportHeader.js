@@ -26,6 +26,7 @@ export default class ReportHeader extends Component {
             case 'S':
                 variantS = "primary";
                 break;
+            default:
         }
 
         return (

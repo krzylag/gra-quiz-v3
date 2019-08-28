@@ -3,10 +3,6 @@ import './DetailsTable.scss';
 
 export default class DetailsTable extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         
         var renderedItems = [];

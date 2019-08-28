@@ -5,10 +5,6 @@ import './PlayHeader.scss';
 
 export default class PlayHeader extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         
         return (
