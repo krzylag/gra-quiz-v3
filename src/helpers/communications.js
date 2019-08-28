@@ -72,12 +72,13 @@ class Communications {
         });
     }
     
-    fetchReport(tryHash) {
+    fetchReport(tryHash, tryPin) {
         return new Promise(function(resolve,reject) {
             Axios.get(SERVER_URL, {
                 params: {
                     action: 'report-get',
-                    hash: tryHash
+                    hash: tryHash,
+                    pin: tryPin
                 }
             }).then((response)=>{
                 if (response.data.result) {

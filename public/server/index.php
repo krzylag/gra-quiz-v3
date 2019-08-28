@@ -70,7 +70,8 @@
                 break;
             case 'report-get':
                 print json_encode(reportGet(
-                    filter_input(INPUT_GET, 'hash', FILTER_SANITIZE_SPECIAL_CHARS)
+                    filter_input(INPUT_GET, 'hash', FILTER_SANITIZE_SPECIAL_CHARS),
+                    filter_input(INPUT_GET, 'pin', FILTER_SANITIZE_SPECIAL_CHARS)
                 ));
                 break;
             case '':   

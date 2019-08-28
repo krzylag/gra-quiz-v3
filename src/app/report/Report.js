@@ -66,7 +66,8 @@ export default class Report extends Component {
     fetchReportIfPossible() {
         if (this.state.packages_list!==null && this.state.groups_list!==null && this.state.pin!==null && typeof(this.state.groups_list[this.state.pin])!=='undefined') {
             comms.fetchReport(
-                this.state.groups_list[this.state.pin].package_hash
+                this.state.groups_list[this.state.pin].package_hash,
+                this.state.pin
             ).then((data)=>{
                 this.setState({report: data, isRefreshDisabled: false});
             });

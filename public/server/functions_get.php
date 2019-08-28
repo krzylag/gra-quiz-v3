@@ -55,7 +55,7 @@ function getPackage($hash) {
     ];
 }
 
-function reportGet($hash) {
+function reportGet($hash, $pin) {
     GLOBAL $DB;
     $prepUsers = $DB->prepare("
         SELECT 
@@ -67,10 +67,12 @@ function reportGet($hash) {
             LEFT JOIN answers AS a ON a.user_id=u.id
         WHERE 
             g.package_hash=:phash 
+            AND g.pin = :pnum
             AND u.deleted_at IS NULL 
             AND g.deleted_at IS NULL
     ");
     $prepUsers->bindParam(":phash", $hash, PDO::PARAM_STR);
+    $prepUsers->bindParam(":pnum", $pin, PDO::PARAM_STR);
     $resUsers = $prepUsers->execute();
     $fetchUsers = $prepUsers->fetchAll(PDO::FETCH_ASSOC);
     $users = [];
