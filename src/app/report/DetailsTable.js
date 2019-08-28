@@ -8,7 +8,7 @@ export default class DetailsTable extends Component {
     }
 
     render() {
-
+        
         var renderedItems = [];
         for (var qkey in this.props.package.json.questions) {
             var questionDef = this.props.package.json.questions[qkey];
@@ -21,7 +21,7 @@ export default class DetailsTable extends Component {
                 if (typeof(user.answers.answer)!=='undefined') {
                     for (var akey in user.answers.answer) {
                         var ans = user.answers.answer[akey];
-                        if (ans.q===questionDef.id && ans.r===true) count++;
+                        if (ans.q===questionDef.id && ans.r===false) count++;
                     }
                 }
             }
