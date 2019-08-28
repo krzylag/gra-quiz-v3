@@ -1,0 +1,32 @@
+.App.Game .Login .area h4.text-primary {
+    color: #1599ED !important;
+    margin: 1.5em 0;
+}
+
+.App.Game .Welcome .textcloud {
+    border-color: #1599ED;
+}
+.App.Game .Welcome .textcloud::before {
+    border-color: #1599ED;
+}
+
+.App.Game .Play .progress {
+    border-color: #1599ED;
+}
+.App.Game .Play .progress .progress-bar {
+    background-color: #1599ED;
+}
+.App.Game .Play .PlayQuestionButton button.btn.btn-primary {
+    background-color: #1599ED;
+}
+.App.Game .Play .PlayQuestionButton.is-incorrect.is-answered button.btn.btn-primary {
+    background-color: #999;
+}
+
+.App.Game .Results .result-summary {
+    font-weight: bold;
+    color: #1599ED;
+}
+.App.Game .Results .GameButton button.btn.btn-primary {
+    background-color: #1599ED;
+}
