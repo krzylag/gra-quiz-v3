@@ -7,8 +7,11 @@
     display: flex;
     flex-direction: row;
 
-    &>div {
+    .username {
         flex: 1;
+    }
+    .statistics {
+        flex: 2;
     }
 
     .pbar {
@@ -36,4 +39,17 @@
         width: 2em;
         text-align: center;
     }
+
+    @media all and (max-width: $screen-width-smallest) {
+        flex-direction: column;
+        .username {
+            text-align: center;
+            margin-bottom: 0.5em;
+        }
+    }
+
+    @media all and (max-height: $screen-height-smallest) {
+        font-size: 0.9em;
+    }
+
 }

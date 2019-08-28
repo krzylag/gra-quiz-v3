@@ -20,4 +20,25 @@
             margin-top: 2em;
         }
     }
+    
+
+    @media all and (max-width: $screen-width-smallest) {
+        .PlayQuestionFlex {
+            .title {
+                font-size: 1.25em;
+            }
+        }
+    }
+
+    @media all and (max-height: $screen-height-smallest) {
+        .PlayQuestionFlex {
+            margin: 1em auto; 
+            .title {
+                font-size: 1.25em;
+            }
+            .buttons {
+                margin-top: 0;
+            }
+        } 
+    }
 }

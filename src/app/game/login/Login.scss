@@ -23,4 +23,13 @@
         margin: 1em;
         color: map-get($theme-colors, danger);
     }
+
+    
+    @media all and (max-width: $screen-width-smallest) {
+       font-size: 0.9em;
+    }
+
+    @media all and (max-height: $screen-height-smallest) {
+        font-size: 0.9em;
+    }
 }

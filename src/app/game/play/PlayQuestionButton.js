@@ -133,6 +133,7 @@ export default class PlayQuestionButton extends Component {
                 <div className="feedback-image feedback-image-bad">
                     {this.renderBadSvg()}
                 </div>
+                <div className="feedback-image feedback-image-reservation" />
             </div>
         )
     }

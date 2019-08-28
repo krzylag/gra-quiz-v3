@@ -16,4 +16,20 @@
             color: map-get($theme-colors, danger);
         }
     }
+
+    @media all and (max-width: $screen-width-smallest) {
+        margin-top: 0;
+        .answer {
+            font-size: 0.9em;
+            margin: 0.75em 0;    
+        }
+    }
+
+    @media all and (max-height: $screen-height-smallest) {
+        margin-top: 0;
+        .answer {
+            font-size: 0.9em;
+            margin: 0.75em 0;    
+        }
+    }
 }

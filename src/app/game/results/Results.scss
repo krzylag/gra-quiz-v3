@@ -24,4 +24,27 @@
         top: 0.5em;
         right: 0.5em;
     }
+
+    
+    @media all and (max-width: $screen-width-smallest) {
+        font-size: 1em;
+        padding-top: 3em;
+        .new-game-button button {
+            font-size: 10pt;
+        }
+        .result-summary {
+            margin: 0.25em 0;
+        }
+    }
+
+    @media all and (max-height: $screen-height-smallest) {
+        font-size: 1em;
+        padding-top: 3em;
+        .new-game-button button {
+            font-size: 10pt;
+        }
+        .result-summary {
+            margin: 0.25em 0;
+        }
+    }
 }

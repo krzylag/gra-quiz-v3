@@ -15,6 +15,9 @@
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
+        &.feedback-image-reservation {
+            display: block;
+        }
     }
     &.is-selected.is-correct .feedback-image.feedback-image-good {
         display: block;
