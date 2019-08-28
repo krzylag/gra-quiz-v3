@@ -9,9 +9,14 @@
 
     font-size: 1.2em;
 
+    .user-name {
+        margin-bottom: 0.75em;
+    }
+
     .result-summary {
         font-size: 1.5em;
         color: map-get($theme-colors, primary);
+        margin: 0.75em 0;
     }
 
     .new-game-button {
