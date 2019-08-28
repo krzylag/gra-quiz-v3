@@ -34,11 +34,14 @@ export default class Login extends Component {
         this.onPinChange=this.onPinChange.bind(this);
         this.onNameChange=this.onNameChange.bind(this);
         this.onStartClicked=this.onStartClicked.bind(this);
+        this.onKeyDownPin=this.onKeyDownPin.bind(this);
+        this.onKeyDownName=this.onKeyDownName.bind(this);
         this.errorMessageTimeoutId=null;
+        this.refPin=React.createRef();
+        this.refName=React.createRef();
     }
 
     render() {
-
         var game_title = (this.props.package===null) ? DEFAULT_STRINGS.game_title : this.props.package.translations.login_screen.game_title;
         var pin_request = (this.props.package===null) ? DEFAULT_STRINGS.pin_request : this.props.package.translations.login_screen.pin_request;
         var pin_placeholder = (this.props.package===null) ? DEFAULT_STRINGS.pin_placeholder : this.props.package.translations.login_screen.pin_placeholder;
@@ -54,12 +57,43 @@ export default class Login extends Component {
                 {this.props.preselectedPin===null && 
                     <div className="area">
                         <h4 className="text-primary font-weight-bold" dangerouslySetInnerHTML={{__html: pin_request}} />
-                        <input type="text" value={this.state.tryPin} onChange={this.onPinChange} placeholder={pin_placeholder} disabled={this.state.isFormDisabled} />
+                        <input 
+                            type="text" 
+                            value={this.state.tryPin} 
+                            onChange={this.onPinChange} 
+                            placeholder={pin_placeholder} 
+                            disabled={this.state.isFormDisabled} 
+                            ref={this.refPin} 
+                            onKeyDown={this.onKeyDownPin}
+                            autoFocus 
+                        />
                     </div>
                 }
                 <div className="area">
                     <h4 className="text-primary font-weight-bold">{name_request}</h4>
-                    <input type="text" value={this.state.tryName} onChange={this.onNameChange} placeholder={name_placeholder} disabled={this.state.isFormDisabled} />
+                    {this.props.preselectedPin===null && 
+                        <input 
+                            type="text" 
+                            value={this.state.tryName} 
+                            onChange={this.onNameChange} 
+                            placeholder={name_placeholder} 
+                            disabled={this.state.isFormDisabled} 
+                            onKeyDown={this.onKeyDownName}
+                            ref={this.refName} 
+                        />
+                    }
+                    {this.props.preselectedPin!==null && 
+                        <input 
+                        type="text" 
+                        value={this.state.tryName} 
+                        onChange={this.onNameChange} 
+                        placeholder={name_placeholder} 
+                        disabled={this.state.isFormDisabled} 
+                        onKeyDown={this.onKeyDownName}
+                        ref={this.refName} 
+                        autoFocus
+                    />
+                }
                 </div>
                 <div className="area">
                     <Button variant="outline-secondary" onClick={this.onStartClicked} size="lg" disabled={this.state.isFormDisabled && this.state.isButtonDisabled}>
@@ -116,6 +150,18 @@ export default class Login extends Component {
             });
 
         })
+    }
+
+    onKeyDownPin(event) {
+        if (event.key === 'Enter' && parsePin(event.target.value)!=='') {
+            this.refName.current.focus();
+        }
+    }
+
+    onKeyDownName(event) {
+        if (event.key === 'Enter' && event.target.value.trim()!=='') {
+            this.onStartClicked();
+        }
     }
 
     validateForm() {
