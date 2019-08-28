@@ -16,13 +16,13 @@ export default class PlayHeader extends Component {
                 <div className="username">{this.props.userName}</div>
                 <div className="statistics">
                     <div className="pbar">
-                        <div className="number">0</div>
+                        <div className="number">{this.props.answeredCount}</div>
                         <ProgressBar
                             min={0}
                             max={this.props.max}
                             now={this.props.current}
                         />
-                        <div className="number">{this.props.max}</div>
+                        <div className="number">{this.props.remainingCount}</div>
                     </div>
                     <div className="partialcount">
                         <div className="name">{this.props.package.translations.game_screen.correct_count}:</div>

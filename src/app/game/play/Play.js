@@ -13,6 +13,9 @@ export default class Play extends Component {
     render() {
         var correctCount = 0;
         var wrongCount = 0;
+        var answeredCount = this.props.currentQuestionId;
+        var remainingCount = this.props.package.questions.length-this.props.currentQuestionId;
+
         for (var akey in this.props.answers) {
             if (this.props.answers[akey].a) {
                 correctCount++;
@@ -30,6 +33,8 @@ export default class Play extends Component {
                     current={this.props.currentQuestionId}
                     correctCount={correctCount}
                     wrongCount={wrongCount}
+                    answeredCount={answeredCount}
+                    remainingCount={remainingCount}
                 />
                 <PlayQuestion 
                     package={this.props.package}
