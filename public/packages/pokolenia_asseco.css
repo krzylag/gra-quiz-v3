@@ -30,3 +30,22 @@
 .App.Game .Results .GameButton button.btn.btn-primary {
     background-color: #1599ED;
 }
+
+.App.Report .ReportHeader button.btn.btn-outline-primary {
+    color: #1599ED;
+    border-color: #1599ED;
+}
+.App.Report .ReportHeader button.btn.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #1599ED;
+}
+.App.Report .ReportHeader button.btn:focus {
+    box-shadow: none;
+}
+.App.Report .ReportHeader button.btn.btn-primary {
+    background-color: #1599ED;
+    border-color: #1599ED;
+}
+.App.Report .GameButton button.btn.btn-primary {
+    background-color: #1599ED;
+}
