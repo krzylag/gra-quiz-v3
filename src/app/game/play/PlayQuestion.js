@@ -18,7 +18,7 @@ export default class PlayQuestion extends Component {
             let ans = this.props.package.answers[akey];
 
             let isSelected=(isAnswered && this.props.answer.aId===ans.id);
-            let isCorrect=(this.props.package.questions[this.props.questionId].answer_id===ans.id);
+            let isCorrect=(this.props.package.questions[this.props.questionIndex].answer_id===ans.id);
 
             renderedButtons.push(
                 <PlayQuestionButton
@@ -37,7 +37,7 @@ export default class PlayQuestion extends Component {
             <div className="PlayQuestion">
                 <div className="PlayQuestionFlex">
                     <div>
-                        <h4 className="title">{this.props.package.questions[this.props.questionId].text}</h4>
+                        <h4 className="title">{this.props.package.questions[this.props.questionIndex].text}</h4>
                     </div>
                     <div className="buttons">
                         {renderedButtons}
@@ -48,6 +48,6 @@ export default class PlayQuestion extends Component {
     }
 
     onAnswerSelected(ansId) {
-        this.props.onQuestionAnswerSelectedCallback(this.props.questionId, ansId);
+        this.props.onQuestionAnswerSelectedCallback(this.props.questionIndex, this.props.questionId, ansId);
     }
 }

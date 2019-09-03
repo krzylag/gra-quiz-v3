@@ -23,6 +23,7 @@ export default class Play extends Component {
                 wrongCount++;
             }
         }
+console.log(this.props);
 
         return (
             <div className="Play">
@@ -38,7 +39,8 @@ export default class Play extends Component {
                 />
                 <PlayQuestion 
                     package={this.props.package}
-                    questionId={this.props.currentQuestionId}
+                    questionIndex={this.props.currentQuestionId}
+                    questionId={this.props.package.questions[this.props.currentQuestionId].id}
                     answer={this.props.answers[this.props.currentQuestionId]}
                     onQuestionAnswerSelectedCallback={this.onQuestionAnswerSelected}
                     onButtonComponentClickedCallback={this.props.onButtonComponentClickedCallback}
@@ -47,8 +49,8 @@ export default class Play extends Component {
         )
     }
 
-    onQuestionAnswerSelected(questionId, answerId) {
-        this.props.onReceiveAnswerCallback(questionId, answerId);
+    onQuestionAnswerSelected(questionIndex, questionId, answerId) {
+        this.props.onReceiveAnswerCallback(questionIndex, questionId, answerId);
     }
 
 }

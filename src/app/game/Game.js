@@ -158,12 +158,12 @@ export default class Game extends Component {
         this.setState({seenWelcome: newSeenState});
     }
 
-    onReceiveAnswer(questionId, answerId) {
+    onReceiveAnswer(questionIndex, questionId, answerId) {
         var answers = this.state.answers;
-        answers[questionId]={
+        answers[questionIndex]={
             qId: questionId,
             aId: answerId,
-            a: (this.state.package.questions[questionId].answer_id===answerId)
+            a: (this.state.package.questions[questionIndex].answer_id===answerId)
         };
         this.setState({answers}, ()=>{
             this.nextQuestionTimeoutId = setTimeout(()=>{
