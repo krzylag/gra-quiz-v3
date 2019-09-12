@@ -23,7 +23,6 @@ export default class Play extends Component {
                 wrongCount++;
             }
         }
-console.log(this.props);
 
         return (
             <div className="Play">
