@@ -12,7 +12,7 @@ export default class GameButton extends Component {
 
     render() {
        
-        var componentClasses = "GameButton";
+        var componentClasses = "GameButton GameButton-"+this.props.buttonId;
         if (this.props.isGrayedOut) componentClasses += ' is-grayed-out';
 
         return (
