@@ -1,0 +1,106 @@
+{
+    "package_title": "Pokolenia - rekrutacja, selekcja i adaptacja",
+    "translations": {
+        "login_screen": {
+            "game_title": "Pokolenia - rekrutacja, selekcja i adaptacja",
+            "pin_request": "Wpisz numer PIN podany przez prowadzacego ćwiczenie.",
+            "pin_placeholder": "PIN",
+            "name_request": "Wpisz swoje imię",
+            "name_placeholder": "imię",
+            "start_button": "start",
+            "player_existing": "Taka nazwa istnieje, użyj innej.",
+            "no_such_pin": "Błędny kod PIN, logowanie niemożliwe.",
+            "unknown_hash": "Wybrany schemat gry nie istnieje. Prowadzący grę musi poprawić konfigurację na ekranie zarządzania."
+        },
+        "welcome_screen": {
+            "welcome_text": "Przed Tobą ćwiczenie dotyczące charakterystyki procesu rekrutacji, selekcji i adaptacji w stosunku do różnych pokoleń. Zadecyduj, które stwierdzenie jest właściwe dla pokoleń baby boomers (BB), X, Y i Z. Dokonaj wyboru, klikając w jeden z przycisków",
+            "start_button": "ok"
+        },
+        "game_screen": {
+            "correct_count": "poprawne",
+            "wrong_count": "błędne"
+        },
+        "results_screen": {
+            "screen_title": "Twój wynik to:",
+            "check_request": "Sprawdź odpowiedzi klikając w poszczególne style zarządcze:"
+        },
+        "report_screen": {
+            "details_request": "Kliknij w wybrany przycisk, by zobaczyć prawidłowe odpowiedzi."
+        }
+    },
+    "answers": [
+        { "text": "BB" },
+        { "text": "X" },
+        { "text": "Y" },
+        { "text": "Z" }
+        
+    ],
+    "randomize_questions": true,
+    "questions": [
+        {
+            "text": "Informacje o wakatach powinny znaleźć się w prasie drukowanej.",
+            "answer_id": 0
+        },
+        {
+            "text": "Zalecane zastosowanie praktycznych próbek pracy i symulacji.",
+            "answer_id": 0
+        },
+        {
+            "text": "\"Marketing  szeptany\" jako informowanie o prowadzonym naborze.",
+            "answer_id": 0
+        },
+    
+        {
+            "text": "Informacje o wakatach powinny znaleźć się w różnorodnych mediach.",
+            "answer_id": 1
+        },
+        {
+            "text": "Duże doświadczenie kandydatów w odbywaniu rozmów rekrutacyjnych.",
+            "answer_id": 1
+        },
+        {
+            "text": "Zalecane zastosowanie nieszablonowych metod i technik.",
+            "answer_id": 1
+        },
+        {
+            "text": "Konieczne inicjowanie rekrutacji w profesjonalnych mediach społecznościowych.",
+            "answer_id": 1
+        },
+        {
+            "text": "Informacje o wakatach i branży powinny znaleźć się w Internecie.",
+            "answer_id": 2
+        },
+        {
+            "text": "Warto w trakcie rekrutacji wymagać listu motywacyjnego, napisanego odręcznie.",
+            "answer_id": 2
+        },
+        {
+            "text": "Inicjowanie rekrutacji w wiarygodnych sieciach społecznych.",
+            "answer_id": 2
+        },
+        {
+            "text": "Stosowanie innowacyjnych, interaktywnych form rekrutacji.",
+            "answer_id": 2
+        },
+        {
+            "text": "W ogłoszeniu o naborze kandydatów warto odwołać się do swobody w korzystaniu z najnowszych technologii w trakcie pracy w celach zawodowych i osobistych.",
+            "answer_id": 3
+        },
+        {
+            "text": "Kandydaci nie są przygotowani do rozmowy rekrutacyjnej i są niezdecydowani co do wyboru oferty.",
+            "answer_id": 3
+        },
+        {
+            "text": "CV i list motywacyjny tylko w wersji elektronicznej.",
+            "answer_id": 3
+        },
+        {
+            "text": "Preselekcja oferty przy użycciu ICT i telefonu.",
+            "answer_id": 3
+        },
+        {
+            "text": "Promowanie networkingu w postępowaniu rekrutacyjnym.",
+            "answer_id": 3
+        }
+    ]
+}
